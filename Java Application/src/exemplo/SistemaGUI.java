@@ -147,7 +147,7 @@ public class SistemaGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEJBStatelessActionPerformed
 
     private void btnContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContatoActionPerformed
-        new ContatoGUI().setVisible(true);
+        new UsuarioGUI().setVisible(true);
     }//GEN-LAST:event_btnContatoActionPerformed
 
     private void btnEJBStatefulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEJBStatefulActionPerformed

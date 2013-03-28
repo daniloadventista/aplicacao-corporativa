@@ -2,12 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package exemplo.jpa.facade;
+package br.com.projii.jpa.facade;
 
-import br.com.projii.jpa.facade.AbstractFacade;
-import exemplo.jpa.Contato;
-import java.util.ArrayList;
-import java.util.List;
+
+import br.com.projii.jpa.Usuario;
+import br.com.projii.jpa.facade.UsuarioFacadeRemote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,8 +15,9 @@ import javax.persistence.PersistenceContext;
  *
  * @author Calebe de Paula Bianchini
  */
-@Stateless(mappedName = "ejb/ContatoFacade")
-public class ContatoFacade extends AbstractFacade<Contato> implements ContatoFacadeRemote {
+//public class UsuarioFacade extends AsbstractFacade<Usuario> implements UsuarioFacadeRemote {
+@Stateless(mappedName = "ejb/UsuarioFacade")
+public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFacadeRemote {
 
     @PersistenceContext(unitName = "Enterprise_Application-ejbPU")
     private EntityManager em;
@@ -27,7 +27,7 @@ public class ContatoFacade extends AbstractFacade<Contato> implements ContatoFac
         return em;
     }
 
-    public ContatoFacade() {
-        super(Contato.class);
+    public UsuarioFacade() {
+        super(Usuario.class);
     }
 }

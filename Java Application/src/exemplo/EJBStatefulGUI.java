@@ -56,6 +56,5 @@ public class EJBStatefulGUI extends GUIBean {
         } catch (ObjetoNotNullException e) {
             JOptionPane.showMessageDialog(this, "Resultado ja existente: " + beanStateful.get());
         }
-
     }
 }

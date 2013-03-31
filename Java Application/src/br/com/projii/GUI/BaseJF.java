@@ -4,6 +4,7 @@
  */
 package br.com.projii.GUI;
 
+import java.awt.Component;
 /**
  *
  * @author 41080130
@@ -13,10 +14,17 @@ public class BaseJF extends javax.swing.JFrame {
     /**
      * Creates new form BaseJF
      */
+    private String Usuario;
+
+    public void setUsuario(String Usuario) {
+        this.Usuario = Usuario;
+    }
+    private PLogin login;
+    
     public BaseJF() {
         initComponents();
         this.setTitle("System Mack");
-        
+        callLogin();
         //callManterDepart();
     }
 //    protected void callManterDepart(){
@@ -27,6 +35,18 @@ public class BaseJF extends javax.swing.JFrame {
 //        manterDepart.setLocation(100, 150);
 //        manterDepart.setSize(600, 300);
 //    }            
+    protected void atualizaUsr(){
+        jMILogar.setText(this.Usuario);
+    }            
+    protected void callLogin(){
+        jMILogar.setText("Login");
+        login = new PLogin(this); 
+        this.add(login);
+        login.setVisible(true);
+        //(800,600)
+        login.setLocation(200, 100);
+        login.setSize(400, 300);
+    }            
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,8 +57,30 @@ public class BaseJF extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMArquivo = new javax.swing.JMenu();
+        jMEditar = new javax.swing.JMenu();
+        jMILogar = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
+
+        jMArquivo.setText("Arquivo");
+        jMenuBar1.add(jMArquivo);
+
+        jMEditar.setText("Editar");
+
+        jMILogar.setText("Usuario");
+        jMILogar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMILogarActionPerformed(evt);
+            }
+        });
+        jMEditar.add(jMILogar);
+
+        jMenuBar1.add(jMEditar);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -48,11 +90,15 @@ public class BaseJF extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 354, Short.MAX_VALUE)
+            .addGap(0, 333, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMILogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMILogarActionPerformed
+        callLogin();
+    }//GEN-LAST:event_jMILogarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -89,5 +135,9 @@ public class BaseJF extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMArquivo;
+    private javax.swing.JMenu jMEditar;
+    private javax.swing.JMenuItem jMILogar;
+    private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }

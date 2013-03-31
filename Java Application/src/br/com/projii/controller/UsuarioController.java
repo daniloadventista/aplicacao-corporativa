@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package exemplo.controller;
+package br.com.projii.controller;
 
 import br.com.projii.jpa.Usuario;
 import br.com.projii.jpa.facade.UsuarioFacadeRemote;

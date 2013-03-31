@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package exemplo;
+package br.com.projii.GUI;
 
 import br.com.projii.jpa.Usuario;
-import exemplo.controller.UsuarioController;
+import br.com.projii.controller.UsuarioController;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author Calebe de Paula Bianchini
  */
 public class UsuarioGUI extends javax.swing.JFrame {
-    
+
     private UsuarioController usuarioController = null;
 
     /**
@@ -23,7 +23,7 @@ public class UsuarioGUI extends javax.swing.JFrame {
         initComponents();
         updateTable();
     }
-    
+
     private void updateTable() {
         try {
             if (usuarioController == null) {
@@ -35,18 +35,26 @@ public class UsuarioGUI extends javax.swing.JFrame {
             return;
         }
         Usuario[] usuarios = usuarioController.findAll().toArray(new Usuario[0]);
-        Object[][] objects = new Object[usuarios.length][2];
+        Object[][] objects = new Object[usuarios.length][9];
         for (int i = 0; i < usuarios.length; i++) {
             objects[i][0] = usuarios[i].getNome();
-            objects[i][1] = usuarios[i].getTelefone();
+            objects[i][1] = usuarios[i].getCPF();
+            objects[i][2] = usuarios[i].getRG();
+            objects[i][3] = usuarios[i].getSexo();
+            objects[i][4] = usuarios[i].getCep();
+            objects[i][5] = usuarios[i].getDataNasc();
+            objects[i][6] = usuarios[i].getEmail();
+            objects[i][7] = usuarios[i].getTelefone();
+            objects[i][8] = usuarios[i].getEndereco();
         }
         tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
                 objects,
                 new String[]{
-                    "Nome", "Telefone"
+                    "Nome", "CPF", "RG", "Sexo", "CEP", "Data Nasc", "Email",
+                    "Telefone", "Endereco"
                 }));
         txtNome.setText("");
-        txtTelefone.setText("");
+        txtSenha.setText("");
     }
 
     /**
@@ -62,7 +70,7 @@ public class UsuarioGUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtTelefone = new javax.swing.JTextField();
+        txtSenha = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUsuarios = new javax.swing.JTable();
@@ -72,7 +80,7 @@ public class UsuarioGUI extends javax.swing.JFrame {
 
         jLabel1.setText("Nome");
 
-        jLabel2.setText("Telefone");
+        jLabel2.setText("Senha");
 
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -88,35 +96,33 @@ public class UsuarioGUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtNome))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTelefone)))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(txtNome))
+                .addGap(26, 26, 26)
                 .addComponent(btnCadastrar)
-                .addGap(29, 29, 29))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
+                        .addGap(30, 30, 30)
                         .addComponent(btnCadastrar)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
@@ -135,7 +141,7 @@ public class UsuarioGUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -150,11 +156,11 @@ public class UsuarioGUI extends javax.swing.JFrame {
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-416)/2, (screenSize.height-338)/2, 416, 338);
+        setBounds((screenSize.width-726)/2, (screenSize.height-338)/2, 726, 338);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        Usuario usuario = new Usuario(txtNome.getText(), txtTelefone.getText());
+        Usuario usuario = new Usuario(txtNome.getText(), txtSenha.getText());
         try {
             usuarioController.create(usuario);
             updateTable();
@@ -170,6 +176,6 @@ public class UsuarioGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblUsuarios;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtTelefone;
+    private javax.swing.JTextField txtSenha;
     // End of variables declaration//GEN-END:variables
 }

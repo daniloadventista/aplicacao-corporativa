@@ -38,9 +38,9 @@ public class Usuario implements Serializable, Cloneable {
     protected Usuario() {
     }
 
-    public Usuario(String nome, String telefone) {
+    public Usuario(String nome, String senha) {
         this.nome = nome;
-        this.telefone = telefone;
+        this.senha = senha;
     }
 
     public Long getId() {
@@ -163,6 +163,4 @@ public class Usuario implements Serializable, Cloneable {
     public void setCPF(Long CPF) {
         this.CPF = CPF;
     }
-
-    
 }

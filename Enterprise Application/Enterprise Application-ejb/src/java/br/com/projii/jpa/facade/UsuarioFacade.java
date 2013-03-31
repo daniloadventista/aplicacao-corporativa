@@ -6,7 +6,6 @@ package br.com.projii.jpa.facade;
 
 
 import br.com.projii.jpa.Usuario;
-import br.com.projii.jpa.facade.UsuarioFacadeRemote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

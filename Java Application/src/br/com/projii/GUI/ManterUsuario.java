@@ -6,6 +6,8 @@ package br.com.projii.GUI;
 
 import br.com.projii.controller.UsuarioController;
 import br.com.projii.jpa.Usuario;
+import com.sun.msv.scanner.dtd.MessageCatalog;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -100,7 +102,7 @@ public class ManterUsuario extends javax.swing.JPanel {
         jTFCep = new javax.swing.JTextField();
         jTFEmail = new javax.swing.JTextField();
         jTFTelefone = new javax.swing.JTextField();
-        jTFDataNasc = new javax.swing.JTextField();
+        jTFDataNascDia = new javax.swing.JTextField();
         jTFRG = new javax.swing.JTextField();
         jTFCPF = new javax.swing.JTextField();
         jRBSexoM = new javax.swing.JRadioButton();
@@ -114,6 +116,8 @@ public class ManterUsuario extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jRBFuncS = new javax.swing.JRadioButton();
         jRBFuncN = new javax.swing.JRadioButton();
+        jTFDataNascMes = new javax.swing.JTextField();
+        jTFDataNascAno = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(1000, 400));
         setRequestFocusEnabled(false);
@@ -190,10 +194,25 @@ public class ManterUsuario extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTUsuarios);
 
         jBCadastrar.setText("Cadastrar");
+        jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCadastrarActionPerformed(evt);
+            }
+        });
 
         jBExcluir.setText("Excluir");
+        jBExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBExcluirActionPerformed(evt);
+            }
+        });
 
         jBAlterar.setText("Alterar");
+        jBAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAlterarActionPerformed(evt);
+            }
+        });
 
         jBLimpar.setText("Limpar");
         jBLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -263,7 +282,6 @@ public class ManterUsuario extends javax.swing.JPanel {
                             .addComponent(jTFCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTFEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTFTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTFDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTFRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTFCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -273,13 +291,19 @@ public class ManterUsuario extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jRBFuncS)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRBFuncN)))
+                                .addComponent(jRBFuncN))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTFDataNascDia, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTFDataNascMes, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTFDataNascAno, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
                         .addGap(11, 11, 11))))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTFCPF, jTFCep, jTFDataNasc, jTFEmail, jTFEndereco, jTFId, jTFNome, jTFRG, jTFSenha, jTFTelefone});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTFCPF, jTFCep, jTFEmail, jTFEndereco, jTFId, jTFNome, jTFRG, jTFSenha, jTFTelefone});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBCadastrar, jBExcluir});
 
@@ -324,7 +348,9 @@ public class ManterUsuario extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(jTFDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTFDataNascDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTFDataNascMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTFDataNascAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
@@ -334,22 +360,22 @@ public class ManterUsuario extends javax.swing.JPanel {
                             .addComponent(jLabel11)
                             .addComponent(jTFCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jRBFuncS)
-                                .addComponent(jRBFuncN))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                                .addComponent(jRBFuncN))
+                            .addComponent(jLabel12)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar)
                     .addComponent(jBExcluir)
                     .addComponent(jBAlterar)
                     .addComponent(jBLimpar))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jTFCPF, jTFCep, jTFDataNasc, jTFEmail, jTFEndereco, jTFId, jTFNome, jTFRG, jTFSenha, jTFTelefone});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jTFCPF, jTFCep, jTFDataNascDia, jTFEmail, jTFEndereco, jTFId, jTFNome, jTFRG, jTFSenha, jTFTelefone});
 
     }// </editor-fold>//GEN-END:initComponents
 
@@ -366,7 +392,9 @@ public class ManterUsuario extends javax.swing.JPanel {
         jRBSexoF.setSelected(false);
         jTFEmail.setText("");
         jTFTelefone.setText("");
-        jTFDataNasc.setText("");
+        jTFDataNascDia.setText("");
+        jTFDataNascAno.setText("");
+        jTFDataNascMes.setText("");
         jTFRG.setText("");
         jTFCPF.setText("");
     }
@@ -409,16 +437,12 @@ public class ManterUsuario extends javax.swing.JPanel {
         if (!(jTUsuarios.getValueAt(linha, 7) == null)) {
             jTFTelefone.setText(jTUsuarios.getValueAt(linha, 7).toString());
         }
-        if (!(jTUsuarios.getValueAt(linha, 8) == null)) {
-            jTFDataNasc.setText(jTUsuarios.getValueAt(linha, 8).toString());
-        }
         if (!(jTUsuarios.getValueAt(linha, 9) == null)) {
             jTFRG.setText(jTUsuarios.getValueAt(linha, 9).toString());
         }
         if (!(jTUsuarios.getValueAt(linha, 10) == null)) {
             jTFCPF.setText(jTUsuarios.getValueAt(linha, 10).toString());
         }
-
     }//GEN-LAST:event_jTUsuariosMouseClicked
 
     private void jRBSexoFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBSexoFActionPerformed
@@ -430,13 +454,108 @@ public class ManterUsuario extends javax.swing.JPanel {
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jRBFuncSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFuncSActionPerformed
-        // TODO add your handling code here:
+        jRBFuncN.setSelected(!jRBFuncS.isSelected());
     }//GEN-LAST:event_jRBFuncSActionPerformed
 
     private void jRBFuncNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFuncNActionPerformed
-        // TODO add your handling code here:
+        jRBFuncS.setSelected(!jRBFuncN.isSelected());
     }//GEN-LAST:event_jRBFuncNActionPerformed
 
+    private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
+        Usuario usuario = null;
+        try {
+            usuario = new Usuario(jTFNome.getText(), jTFSenha.getText());
+            usuario.setCPF(Long.parseLong(jTFCPF.getText()));
+            usuario.setCep(Long.parseLong(jTFCep.getText()));
+            usuario.setDataNasc(new Date(Integer.parseInt(jTFDataNascAno.getText()),
+                    Integer.parseInt(jTFDataNascMes.getText()),
+                    Integer.parseInt(jTFDataNascDia.getText())));
+            usuario.setEmail(jTFEmail.getText());
+            usuario.setEndereco(jTFEndereco.getText());
+            if (jRBFuncS.isSelected()) {
+                usuario.setIsFunc(true);
+            } else {
+                usuario.setIsFunc(false);
+            }
+            usuario.setTelefone(jTFTelefone.getText());
+            usuario.setRG(Long.parseLong(jTFRG.getText()));
+            if (jRBSexoM.isSelected()) {
+                usuario.setSexo('M');
+            } else {
+                usuario.setSexo('F');
+            }
+            try {
+                if (usuarioController == null) {
+                    usuarioController = new UsuarioController();
+                }
+                usuarioController.create(usuario);
+                atualizarJTUsuarios();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Erro ao gravar usuario: " + usuario);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro Formulario mal preenchido",
+                    "System Mack", 2);
+        }
+
+        limpaTxts();
+    }//GEN-LAST:event_jBCadastrarActionPerformed
+
+    private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
+        try {
+            if (usuarioController == null) {
+                usuarioController = new UsuarioController();
+            }
+            Object id = jTUsuarios.getValueAt(jTUsuarios.getSelectedRow(), 0);
+            Usuario u = usuarioController.find(id);
+            usuarioController.delete(u);
+            atualizarJTUsuarios();
+            limpaTxts();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao deletar o usuario");
+        }
+    }//GEN-LAST:event_jBExcluirActionPerformed
+
+    private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
+        Usuario usuario = null;
+        try {
+            if (usuarioController == null) {
+                usuarioController = new UsuarioController();
+            }
+            Object id = jTUsuarios.getValueAt(jTUsuarios.getSelectedRow(), 0);
+            usuario = usuarioController.find(id);
+
+            usuario.setCPF(Long.parseLong(jTFCPF.getText()));
+            usuario.setCep(Long.parseLong(jTFCep.getText()));
+            usuario.setDataNasc(new Date(Integer.parseInt(jTFDataNascAno.getText()),
+                    Integer.parseInt(jTFDataNascMes.getText()),
+                    Integer.parseInt(jTFDataNascDia.getText())));
+            usuario.setEmail(jTFEmail.getText());
+            usuario.setEndereco(jTFEndereco.getText());
+            if (jRBFuncS.isSelected()) {
+                usuario.setIsFunc(true);
+            } else {
+                usuario.setIsFunc(false);
+            }
+            usuario.setRG(Long.parseLong(jTFRG.getText()));
+            usuario.setTelefone(jTFTelefone.getText());
+            if (jRBSexoM.isSelected()) {
+                usuario.setSexo('M');
+            } else {
+                usuario.setSexo('F');
+            }
+            try {
+                usuarioController.update(usuario);
+                atualizarJTUsuarios();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Erro ao Alterar o usuario");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro Formulario mal preenchido",
+                    "System Mack", 2);
+        }
+        limpaTxts();
+    }//GEN-LAST:event_jBAlterarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAlterar;
     private javax.swing.JButton jBCadastrar;
@@ -461,7 +580,9 @@ public class ManterUsuario extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFCPF;
     private javax.swing.JTextField jTFCep;
-    private javax.swing.JTextField jTFDataNasc;
+    private javax.swing.JTextField jTFDataNascAno;
+    private javax.swing.JTextField jTFDataNascDia;
+    private javax.swing.JTextField jTFDataNascMes;
     private javax.swing.JTextField jTFEmail;
     private javax.swing.JTextField jTFEndereco;
     private javax.swing.JTextField jTFId;

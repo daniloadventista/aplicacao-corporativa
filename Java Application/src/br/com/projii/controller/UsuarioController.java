@@ -32,4 +32,13 @@ public class UsuarioController {
     public List<Usuario> findAll() {
         return (usuarioFacade.findAll());
     }
+    public void delete(Usuario entity) {
+        usuarioFacade.remove(entity);
+    }
+    public void update(Usuario entity) {
+        usuarioFacade.edit(entity);
+    }
+    public Usuario find(Object id) {
+        return usuarioFacade.find(id);
+    }
 }

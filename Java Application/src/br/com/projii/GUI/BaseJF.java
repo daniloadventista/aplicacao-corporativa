@@ -4,7 +4,8 @@
  */
 package br.com.projii.GUI;
 
-import java.awt.Component;
+import javax.swing.JScrollPane;
+
 /**
  *
  * @author 41080130
@@ -24,17 +25,20 @@ public class BaseJF extends javax.swing.JFrame {
     public BaseJF() {
         initComponents();
         this.setTitle("System Mack");
-        callLogin();
-        //callManterDepart();
+        this.setResizable(false);
+        //callLogin();
+        callManterUsuario();
     }
-//    protected void callManterDepart(){
-//        ManterDepart manterDepart = new ManterDepart();
-//        this.add(manterDepart);
-//        manterDepart.setVisible(true);
-//        //(800,600)
-//        manterDepart.setLocation(100, 150);
-//        manterDepart.setSize(600, 300);
-//    }            
+    protected void callManterUsuario(){
+        ManterUsuario manterUsuario = new ManterUsuario();
+        JScrollPane jScrollPane = new JScrollPane(manterUsuario);
+        this.add(jScrollPane);
+        
+        jScrollPane.setVisible(true);
+        //(800,600)
+        jScrollPane.setLocation(50, 25);
+        jScrollPane.setSize(700, 500);
+    }            
     protected void atualizaUsr(){
         jMILogar.setText(this.Usuario);
     }            

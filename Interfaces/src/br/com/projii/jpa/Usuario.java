@@ -14,7 +14,7 @@ import javax.persistence.Temporal;
 
 /**
  *
- * @author Calebe de Paula Bianchini
+ * @author 41080130 danilo lima
  */
 @Entity
 public class Usuario implements Serializable, Cloneable {
@@ -34,7 +34,8 @@ public class Usuario implements Serializable, Cloneable {
     private Date dataNasc;
     private Long RG;
     private Long CPF;
-
+    private boolean isFunc;
+    
     protected Usuario() {
     }
 
@@ -90,14 +91,6 @@ public class Usuario implements Serializable, Cloneable {
     @Override
     public Usuario clone() {
         return new Usuario(this.nome, this.telefone);
-    }
-
-    @Override
-    public String toString() {
-        return "Usuario{" + "id=" + id + ", nome=" + nome + ", senha=" + senha 
-                + ", endereco=" + endereco + ", cep=" + cep + ", sexo=" + sexo 
-                + ", email=" + email + ", telefone=" + telefone + ", dataNasc=" 
-                + dataNasc + ", RG=" + RG + ", CPF=" + CPF + '}';
     }
 
     public String getSenha() {
@@ -163,4 +156,22 @@ public class Usuario implements Serializable, Cloneable {
     public void setCPF(Long CPF) {
         this.CPF = CPF;
     }
+
+    public boolean isIsFunc() {
+        return isFunc;
+    }
+
+    public void setIsFunc(boolean isFunc) {
+        this.isFunc = isFunc;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", nome=" + nome + ", senha=" + senha 
+                + ", endereco=" + endereco + ", cep=" + cep + ", sexo=" + sexo 
+                + ", email=" + email + ", telefone=" + telefone + ", dataNasc=" 
+                + dataNasc + ", RG=" + RG + ", CPF=" + CPF + ", isFunc=" + isFunc + '}';
+    }
+
+    
 }

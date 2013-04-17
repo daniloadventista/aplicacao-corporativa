@@ -6,8 +6,6 @@ package br.com.projii.GUI;
 
 import br.com.projii.controller.CategoriaController;
 import br.com.projii.jpa.Categoria;
-import com.sun.msv.scanner.dtd.MessageCatalog;
-import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -220,36 +218,17 @@ public class ManterCategoria extends javax.swing.JPanel {
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        Usuario usuario = null;
+        Categoria categoria = null;
         try {
-            usuario = new Usuario(jTFNome.getText(), jTFSenha.getText());
-            usuario.setCPF(Long.parseLong(jTFCPF.getText()));
-            usuario.setCep(Long.parseLong(jTFCep.getText()));
-            usuario.setDataNasc(new Date(Integer.parseInt(jTFDataNascAno.getText()),
-                    Integer.parseInt(jTFDataNascMes.getText()),
-                    Integer.parseInt(jTFDataNascDia.getText())));
-            usuario.setEmail(jTFEmail.getText());
-            usuario.setEndereco(jTFEndereco.getText());
-            if (jRBFuncS.isSelected()) {
-                usuario.setIsFunc(true);
-            } else {
-                usuario.setIsFunc(false);
-            }
-            usuario.setTelefone(jTFTelefone.getText());
-            usuario.setRG(Long.parseLong(jTFRG.getText()));
-            if (jRBSexoM.isSelected()) {
-                usuario.setSexo('M');
-            } else {
-                usuario.setSexo('F');
-            }
+            categoria = new Categoria(jTFNome.getText());
             try {
                 if (categoriaController == null) {
-                    categoriaController = new UsuarioController();
+                    categoriaController = new CategoriaController();
                 }
-                categoriaController.create(usuario);
+                categoriaController.create(categoria);
                 atualizarJTCategoria();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Erro ao gravar usuario: " + usuario);
+                JOptionPane.showMessageDialog(this, "Erro ao gravar Categoria: " + categoria);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro Formulario mal preenchido",
@@ -262,48 +241,29 @@ public class ManterCategoria extends javax.swing.JPanel {
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
         try {
             if (categoriaController == null) {
-                categoriaController = new UsuarioController();
+                categoriaController = new CategoriaController();
             }
             Object id = jTCategoria.getValueAt(jTCategoria.getSelectedRow(), 0);
-            Usuario u = categoriaController.find(id);
-            categoriaController.delete(u);
+            Categoria c = categoriaController.find(id);
+            categoriaController.delete(c);
             atualizarJTCategoria();
             limpaTxts();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao deletar o usuario");
+            JOptionPane.showMessageDialog(this, "Erro ao deletar o Categoria");
         }
     }//GEN-LAST:event_jBExcluirActionPerformed
 
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
-        Usuario usuario = null;
+        Categoria categoria = null;
         try {
             if (categoriaController == null) {
-                categoriaController = new UsuarioController();
+                categoriaController = new CategoriaController();
             }
             Object id = jTCategoria.getValueAt(jTCategoria.getSelectedRow(), 0);
-            usuario = categoriaController.find(id);
+            categoria = categoriaController.find(id);
 
-            usuario.setCPF(Long.parseLong(jTFCPF.getText()));
-            usuario.setCep(Long.parseLong(jTFCep.getText()));
-            usuario.setDataNasc(new Date(Integer.parseInt(jTFDataNascAno.getText()),
-                    Integer.parseInt(jTFDataNascMes.getText()),
-                    Integer.parseInt(jTFDataNascDia.getText())));
-            usuario.setEmail(jTFEmail.getText());
-            usuario.setEndereco(jTFEndereco.getText());
-            if (jRBFuncS.isSelected()) {
-                usuario.setIsFunc(true);
-            } else {
-                usuario.setIsFunc(false);
-            }
-            usuario.setRG(Long.parseLong(jTFRG.getText()));
-            usuario.setTelefone(jTFTelefone.getText());
-            if (jRBSexoM.isSelected()) {
-                usuario.setSexo('M');
-            } else {
-                usuario.setSexo('F');
-            }
             try {
-                categoriaController.update(usuario);
+                categoriaController.update(categoria);
                 atualizarJTCategoria();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Erro ao Alterar o usuario");

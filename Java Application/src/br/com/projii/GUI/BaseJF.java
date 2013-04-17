@@ -21,36 +21,49 @@ public class BaseJF extends javax.swing.JFrame {
         this.Usuario = Usuario;
     }
     private PLogin login;
-    
+    private ManterUsuario manterUsuario;
+    private JScrollPane jScrollPane;
+
     public BaseJF() {
         initComponents();
         this.setTitle("System Mack");
         this.setResizable(false);
-        //callLogin();
-        callManterUsuario();
+        callLogin();
+        //callManterUsuario();
     }
-    protected void callManterUsuario(){
-        ManterUsuario manterUsuario = new ManterUsuario();
-        JScrollPane jScrollPane = new JScrollPane(manterUsuario);
+
+    protected void callManterUsuario() {
+        removerLogin();
+        manterUsuario = new ManterUsuario();
+        jScrollPane = new JScrollPane(manterUsuario);
         this.add(jScrollPane);
-        
+
         jScrollPane.setVisible(true);
         //(800,600)
         jScrollPane.setLocation(50, 25);
         jScrollPane.setSize(700, 500);
-    }            
-    protected void atualizaUsr(){
+    }
+
+    protected void removerLogin() {
+        this.remove(login);        
+    }
+    protected void removerUsuario() {
+        this.remove(jScrollPane);
+    }
+
+    protected void atualizaUsr() {
         jMILogar.setText(this.Usuario);
-    }            
-    protected void callLogin(){
+    }
+
+    protected void callLogin() {
         jMILogar.setText("Login");
-        login = new PLogin(this); 
+        login = new PLogin(this);
         this.add(login);
         login.setVisible(true);
         //(800,600)
         login.setLocation(200, 100);
         login.setSize(400, 300);
-    }            
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,10 +74,15 @@ public class BaseJF extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMArquivo = new javax.swing.JMenu();
         jMEditar = new javax.swing.JMenu();
         jMILogar = new javax.swing.JMenuItem();
+        jMMUsuario = new javax.swing.JMenu();
+        jMIUsuario = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -84,6 +102,24 @@ public class BaseJF extends javax.swing.JFrame {
 
         jMenuBar1.add(jMEditar);
 
+        jMMUsuario.setText("Usuarios");
+        jMMUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jMMUsuarioFocusGained(evt);
+            }
+        });
+
+        jMIUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        jMIUsuario.setText("Manter Usuario");
+        jMIUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIUsuarioActionPerformed(evt);
+            }
+        });
+        jMMUsuario.add(jMIUsuario);
+
+        jMenuBar1.add(jMMUsuario);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -101,8 +137,16 @@ public class BaseJF extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMILogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMILogarActionPerformed
+        removerUsuario();
         callLogin();
     }//GEN-LAST:event_jMILogarActionPerformed
+
+    private void jMMUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMUsuarioFocusGained
+    }//GEN-LAST:event_jMMUsuarioFocusGained
+
+    private void jMIUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIUsuarioActionPerformed
+        callManterUsuario();
+    }//GEN-LAST:event_jMIUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,7 +176,7 @@ public class BaseJF extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-           java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new BaseJF().setVisible(true);
             }
@@ -142,6 +186,9 @@ public class BaseJF extends javax.swing.JFrame {
     private javax.swing.JMenu jMArquivo;
     private javax.swing.JMenu jMEditar;
     private javax.swing.JMenuItem jMILogar;
+    private javax.swing.JMenuItem jMIUsuario;
+    private javax.swing.JMenu jMMUsuario;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
 }

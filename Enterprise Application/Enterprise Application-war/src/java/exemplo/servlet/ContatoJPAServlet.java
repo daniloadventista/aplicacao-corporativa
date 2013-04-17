@@ -41,6 +41,7 @@ public class ContatoJPAServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet ContatoServlet</title>");

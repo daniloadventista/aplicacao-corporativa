@@ -22,6 +22,7 @@ public class BaseJF extends javax.swing.JFrame {
     }
     private PLogin login;
     private ManterUsuario manterUsuario;
+    private ManterCategoria manterCategoria;
     private JScrollPane jScrollPane;
 
     public BaseJF() {
@@ -33,7 +34,9 @@ public class BaseJF extends javax.swing.JFrame {
     }
 
     protected void callManterUsuario() {
-        removerLogin();
+        removerTudo();
+        initComponents();
+       
         manterUsuario = new ManterUsuario();
         jScrollPane = new JScrollPane(manterUsuario);
         this.add(jScrollPane);
@@ -43,12 +46,22 @@ public class BaseJF extends javax.swing.JFrame {
         jScrollPane.setLocation(50, 25);
         jScrollPane.setSize(700, 500);
     }
+    protected void callManterCategoria() {
+        removerTudo();
+        initComponents();
+       
+        manterCategoria = new ManterCategoria();
+        jScrollPane = new JScrollPane(manterCategoria);
+        this.add(jScrollPane);
 
-    protected void removerLogin() {
-        this.remove(login);        
+        jScrollPane.setVisible(true);
+        //(800,600)
+        jScrollPane.setLocation(150, 100);
+        jScrollPane.setSize(500, 410);
     }
-    protected void removerUsuario() {
-        this.remove(jScrollPane);
+
+    protected void removerTudo() {
+        this.getContentPane().removeAll();        
     }
 
     protected void atualizaUsr() {
@@ -56,6 +69,9 @@ public class BaseJF extends javax.swing.JFrame {
     }
 
     protected void callLogin() {
+        removerTudo();
+        initComponents();
+        
         jMILogar.setText("Login");
         login = new PLogin(this);
         this.add(login);
@@ -81,6 +97,8 @@ public class BaseJF extends javax.swing.JFrame {
         jMILogar = new javax.swing.JMenuItem();
         jMMUsuario = new javax.swing.JMenu();
         jMIUsuario = new javax.swing.JMenuItem();
+        jMMCategoria = new javax.swing.JMenu();
+        jMICategoria = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -120,6 +138,24 @@ public class BaseJF extends javax.swing.JFrame {
 
         jMenuBar1.add(jMMUsuario);
 
+        jMMCategoria.setText("Categorias");
+        jMMCategoria.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jMMCategoriaFocusGained(evt);
+            }
+        });
+
+        jMICategoria.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        jMICategoria.setText("Manter Categoria");
+        jMICategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMICategoriaActionPerformed(evt);
+            }
+        });
+        jMMCategoria.add(jMICategoria);
+
+        jMenuBar1.add(jMMCategoria);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -137,7 +173,7 @@ public class BaseJF extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMILogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMILogarActionPerformed
-        removerUsuario();
+        removerTudo();
         callLogin();
     }//GEN-LAST:event_jMILogarActionPerformed
 
@@ -147,6 +183,14 @@ public class BaseJF extends javax.swing.JFrame {
     private void jMIUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIUsuarioActionPerformed
         callManterUsuario();
     }//GEN-LAST:event_jMIUsuarioActionPerformed
+
+    private void jMICategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICategoriaActionPerformed
+        callManterCategoria();
+    }//GEN-LAST:event_jMICategoriaActionPerformed
+
+    private void jMMCategoriaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMCategoriaFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMMCategoriaFocusGained
 
     /**
      * @param args the command line arguments
@@ -185,8 +229,10 @@ public class BaseJF extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMArquivo;
     private javax.swing.JMenu jMEditar;
+    private javax.swing.JMenuItem jMICategoria;
     private javax.swing.JMenuItem jMILogar;
     private javax.swing.JMenuItem jMIUsuario;
+    private javax.swing.JMenu jMMCategoria;
     private javax.swing.JMenu jMMUsuario;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

@@ -525,6 +525,8 @@ public class ManterUsuario extends javax.swing.JPanel {
             Object id = jTUsuarios.getValueAt(jTUsuarios.getSelectedRow(), 0);
             usuario = usuarioController.find(id);
 
+            usuario.setNome(jTFNome.getText());
+            usuario.setSenha(jTFSenha.getText());
             usuario.setCPF(Long.parseLong(jTFCPF.getText()));
             usuario.setCep(Long.parseLong(jTFCep.getText()));
             usuario.setDataNasc(new Date(Integer.parseInt(jTFDataNascAno.getText()),

@@ -33,64 +33,58 @@
                   <Component id="jLabel5" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
                   <Component id="jLabel6" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
                   <Component id="jLabel7" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
-                  <Component id="jLabel8" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jLabel10" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel9" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="jLabel10" alignment="0" min="-2" pref="68" max="-2" attributes="0"/>
                   <Component id="jLabel12" alignment="0" min="-2" pref="68" max="-2" attributes="0"/>
+                  <Component id="jLabel13" alignment="1" pref="74" max="32767" attributes="0"/>
+                  <Component id="jLabel8" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="100" pref="100" max="-2" attributes="0"/>
-                              <Component id="jBExcluir" linkSize="3" min="-2" pref="82" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jBAlterar" min="-2" pref="82" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jBLimpar" min="-2" pref="82" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jBCadastrar" linkSize="3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="300" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jTFTelefone" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jDCData" linkSize="1" min="-2" pref="99" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="528" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="795" max="32767" attributes="0"/>
+                      <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTFId" linkSize="1" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
-                          <Component id="jTFNome" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTFSenha" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTFEndereco" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTFCep" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTFEmail" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTFTelefone" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTFRG" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTFCPF" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="jRBSexoM" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jRBSexoF" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="100" pref="100" max="-2" attributes="0"/>
+                                  <Component id="jBExcluir" linkSize="3" min="-2" pref="82" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jBAlterar" min="-2" pref="82" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jBLimpar" min="-2" pref="82" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jBCadastrar" linkSize="3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="300" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="jRBFuncS" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jRBFuncN" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jTFDataNascDia" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="jRBSexoM" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTFDataNascMes" min="-2" pref="22" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTFDataNascAno" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="jRBSexoF" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jTFCPF" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTFRG" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTFEmail" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTFCep" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTFEndereco" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTFSenha" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTFNome" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTFId" linkSize="1" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jScrollPane1" pref="793" max="32767" attributes="0"/>
-                      <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
+                      <EmptySpace pref="530" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -143,11 +137,9 @@
                           <Component id="jTFTelefone" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTFDataNascDia" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTFDataNascMes" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTFDataNascAno" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel13" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jDCData" linkSize="2" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -223,11 +215,6 @@
         <Property name="text" type="java.lang.String" value="telefone"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel9">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Data de Nasc."/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
         <Property name="text" type="java.lang.String" value="RG"/>
@@ -254,8 +241,6 @@
     <Component class="javax.swing.JTextField" name="jTFEmail">
     </Component>
     <Component class="javax.swing.JTextField" name="jTFTelefone">
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTFDataNascDia">
     </Component>
     <Component class="javax.swing.JTextField" name="jTFRG">
     </Component>
@@ -369,9 +354,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRBFuncNActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTFDataNascMes">
+    <Component class="com.toedter.calendar.JDateChooser" name="jDCData">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTFDataNascAno">
+    <Component class="javax.swing.JLabel" name="jLabel13">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Data de Nasc."/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Calebe de Paula Bianchini
+ * @author Danilo Lira de Lima
  */
 //public class UsuarioFacade extends AsbstractFacade<Usuario> implements UsuarioFacadeRemote {
 @Stateless(mappedName = "ejb/UsuarioFacade")

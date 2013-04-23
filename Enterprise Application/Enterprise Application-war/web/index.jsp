@@ -1,21 +1,12 @@
-<%-- 
-    Document   : index
-    Created on : Sep 22, 2012, 1:42:04 PM
-    Author     : Calebe de Paula Bianchini
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Index Page</title>
-    </head>
-    <body>
-        <h1>Simple EJB example</h1>
-        <a href="EJBStateless.jsp">EJB Stateless</a><br/>
-        <a href="EJBStateful.jsp">EJB Statefull</a><br/>
-        <h1>Simple JPA example</h1>
-        <a href="ContatoJPAServlet">Lista de Contato</a><br/>
-    </body>
-</html>
+<%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>
+<%@taglib uri="/WEB-INF/struts-tiles.tld" prefix="tiles" %>
+<tiles:insert page="/site/site.jsp" flush="true">
+    <tiles:put name="nomeMenu" value="Home" />
+    <tiles:put name="topo" value="/site/topo.jsp" />
+    <tiles:put name="links" value="/site/links.jsp" />
+    <tiles:put name="corpo" value="/site/home.jsp" />
+    <tiles:put name="rodape" value="/site/rodape.jsp" />
+    <tiles:put name="empresa" value="/site/empresa.jsp" />
+    <tiles:put name="galeria" value="/site/galeria.jsp" />
+</tiles:insert>

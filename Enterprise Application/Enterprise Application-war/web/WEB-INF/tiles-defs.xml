@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+ <!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+       "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+
+<!--
+     This is a blank Tiles definition file with a commented example.
+-->
+
+<tiles-definitions>
+
+    <!-- sample tiles definitions
+    <definition name=".mainLayout" path="/common/layouts/classicLayout.jsp">
+        <put name="title"  value="Sample Page Title" />
+        <put name="header" value="/common/header.jsp" />
+        <put name="menu"   value=".mainMenu" />
+        <put name="footer" value="/common/footer.jsp" />
+        <put name="body"   value=".portal.body" />
+    </definition>
+
+    <definition name=".mainMenu" path="/common/layouts/vboxLayout.jsp" >
+        <putList name="list" >
+            <add value=".menu.links" />
+            <add value=".menu.taglib.references" />
+            <add value=".menu.printer.friendly" />
+            <add value=".menu.old.documents" />
+      </putList>
+    </definition>
+
+    <definition name="aPage" extends=".mainLayout">
+        <put name="title"  value="Another Title" />
+        <put name="body"   value=".aPage.body" />
+    </definition>
+
+    end samples -->
+
+    <definition name="home" path="/site/site.jsp">
+    	<put name="titulo" value="Home" />
+    	<put name="topo" value="/site/topo.jsp" />
+    	<put name="links" value="/site/links.jsp" />
+    	<put name="corpo" value="/site/home.jsp" />
+    	<put name="rodape" value="/site/rodape.jsp" />
+    </definition>
+    <definition name="empresa" extends="home">
+    	<put name="titulo" value="Empresa" />
+    	<put name="corpo" value="/site/empresa.jsp" />
+    </definition>
+    <definition name="servicos" extends="home">
+    	<put name="titulo" value="Serviços" />
+    	<put name="corpo" value="/site/servicos.jsp" />
+    </definition>
+    <definition name="galeria" extends="home">
+    	<put name="titulo" value="Galeria" />
+    	<put name="corpo" value="/site/galeria.jsp" />
+    </definition>
+      <definition name="local" extends="home">
+    	<put name="titulo" value="Local" />
+    	<put name="corpo" value="/site/local.jsp" />
+    </definition>
+     <definition name="studio" extends="home">
+    	<put name="titulo" value="Studio" />
+    	<put name="corpo" value="/site/studio.jsp" />
+    </definition>
+    <definition name="produtos" extends="home">
+    	<put name="titulo" value="Produtos" />
+    	<put name="corpo" value="/site/produtos.jsp" />
+    </definition>
+    <definition name="contato" extends="home">
+    	<put name="titulo" value="Contato" />
+    	<put name="corpo" value="/site/contato.jsp" />
+    </definition>
+     <definition name="saude" extends="home">
+    	<put name="titulo" value="Saude" />
+    	<put name="corpo" value="/site/saude.jsp" />
+    </definition>
+     <definition name="estetica" extends="home">
+    	<put name="titulo" value="Estetica corporal" />
+    	<put name="corpo" value="/site/estetica.jsp" />
+    </definition>
+    <definition name="pesmaos" extends="home">
+    	<put name="titulo" value="Pes e maos" />
+    	<put name="corpo" value="/site/pesmaos.jsp" />
+    </definition>
+    <definition name="noiva" extends="home">
+    	<put name="titulo" value="Dia da noiva" />
+    	<put name="corpo" value="/site/noiva.jsp" />
+    </definition>
+     <definition name="lapis" extends="home">
+    	<put name="titulo" value="Lapis de boca" />
+    	<put name="corpo" value="/site/lapisboca.jsp" />
+    </definition>
+    <definition name="curiosidades" extends="home">
+    	<put name="titulo" value="curiosidades" />
+    	<put name="corpo" value="/site/curiosidades.jsp" />
+    </definition>
+    <definition name="hidrat" extends="home">
+    	<put name="titulo" value="hidrat" />
+    	<put name="corpo" value="/site/hidrat.jsp" />
+    </definition>
+    
+</tiles-definitions>

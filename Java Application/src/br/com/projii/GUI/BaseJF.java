@@ -23,6 +23,7 @@ public class BaseJF extends javax.swing.JFrame {
     private PLogin login;
     private ManterUsuario manterUsuario;
     private ManterCategoria manterCategoria;
+    private ManterFilial manterFilial;
     private JScrollPane jScrollPane;
 
     public BaseJF() {
@@ -36,7 +37,7 @@ public class BaseJF extends javax.swing.JFrame {
     protected void callManterUsuario() {
         removerTudo();
         initComponents();
-       
+
         manterUsuario = new ManterUsuario();
         jScrollPane = new JScrollPane(manterUsuario);
         this.add(jScrollPane);
@@ -46,10 +47,11 @@ public class BaseJF extends javax.swing.JFrame {
         jScrollPane.setLocation(50, 25);
         jScrollPane.setSize(700, 500);
     }
+
     protected void callManterCategoria() {
         removerTudo();
         initComponents();
-       
+
         manterCategoria = new ManterCategoria();
         jScrollPane = new JScrollPane(manterCategoria);
         this.add(jScrollPane);
@@ -59,9 +61,22 @@ public class BaseJF extends javax.swing.JFrame {
         jScrollPane.setLocation(150, 100);
         jScrollPane.setSize(500, 410);
     }
+    protected void callManterFilial() {
+        removerTudo();
+        initComponents();
+
+        manterFilial = new ManterFilial();
+        jScrollPane = new JScrollPane(manterFilial);
+        this.add(jScrollPane);
+
+        jScrollPane.setVisible(true);
+        //(800,600)
+        jScrollPane.setLocation(150, 100);
+        jScrollPane.setSize(500, 410);
+    }
 
     protected void removerTudo() {
-        this.getContentPane().removeAll();        
+        this.getContentPane().removeAll();
     }
 
     protected void atualizaUsr() {
@@ -71,7 +86,7 @@ public class BaseJF extends javax.swing.JFrame {
     protected void callLogin() {
         removerTudo();
         initComponents();
-        
+
         jMILogar.setText("Login");
         login = new PLogin(this);
         this.add(login);
@@ -99,6 +114,8 @@ public class BaseJF extends javax.swing.JFrame {
         jMIUsuario = new javax.swing.JMenuItem();
         jMMCategoria = new javax.swing.JMenu();
         jMICategoria = new javax.swing.JMenuItem();
+        jMMFilial = new javax.swing.JMenu();
+        jMIFilial = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -156,6 +173,24 @@ public class BaseJF extends javax.swing.JFrame {
 
         jMenuBar1.add(jMMCategoria);
 
+        jMMFilial.setText("Filiais");
+        jMMFilial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jMMFilialFocusGained(evt);
+            }
+        });
+
+        jMIFilial.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        jMIFilial.setText("Manter Filial");
+        jMIFilial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIFilialActionPerformed(evt);
+            }
+        });
+        jMMFilial.add(jMIFilial);
+
+        jMenuBar1.add(jMMFilial);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -191,6 +226,14 @@ public class BaseJF extends javax.swing.JFrame {
     private void jMMCategoriaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMCategoriaFocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_jMMCategoriaFocusGained
+
+    private void jMIFilialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIFilialActionPerformed
+        callManterFilial();
+    }//GEN-LAST:event_jMIFilialActionPerformed
+
+    private void jMMFilialFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMFilialFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMMFilialFocusGained
 
     /**
      * @param args the command line arguments
@@ -230,9 +273,11 @@ public class BaseJF extends javax.swing.JFrame {
     private javax.swing.JMenu jMArquivo;
     private javax.swing.JMenu jMEditar;
     private javax.swing.JMenuItem jMICategoria;
+    private javax.swing.JMenuItem jMIFilial;
     private javax.swing.JMenuItem jMILogar;
     private javax.swing.JMenuItem jMIUsuario;
     private javax.swing.JMenu jMMCategoria;
+    private javax.swing.JMenu jMMFilial;
     private javax.swing.JMenu jMMUsuario;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

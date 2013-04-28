@@ -23,6 +23,22 @@ public class Filial implements Serializable, Cloneable {
     private Long id;
     private String nome;
     private String endereco;
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public Long getCEP() {
+        return CEP;
+    }
+
+    public void setCEP(Long CEP) {
+        this.CEP = CEP;
+    }
     private Long CEP;
 
     protected Filial() {
@@ -50,8 +66,10 @@ public class Filial implements Serializable, Cloneable {
 
     @Override
     public String toString() {
-        return "Categoria{" + "id=" + id + ", nome=" + nome + '}';
+        return "Filial{" + "id=" + id + ", nome=" + nome + ", endereco=" + endereco + ", CEP=" + CEP + '}';
     }
+
+    
 
     @Override
     public int hashCode() {

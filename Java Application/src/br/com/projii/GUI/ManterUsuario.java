@@ -405,11 +405,11 @@ public class ManterUsuario extends javax.swing.JPanel {
                 jRBFuncS.setSelected(true);
                 jRBFuncN.setSelected(false);
             } else {
-                jRBFuncS.setSelected(true);
-                jRBFuncN.setSelected(false);
+                jRBFuncS.setSelected(false);
+                jRBFuncN.setSelected(true);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao deletar o usuario");
+            JOptionPane.showMessageDialog(this, "Erro ao buscar o usuario");
         }
         int linha = jTUsuarios.getSelectedRow();
 

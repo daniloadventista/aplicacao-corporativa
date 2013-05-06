@@ -50,10 +50,48 @@ public class Produto implements Serializable, Cloneable {
         this.nome = nome;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getEspecificacao() {
+        return especificacao;
+    }
+
+    public void setEspecificacao(String especificacao) {
+        this.especificacao = especificacao;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
+    public Long getCategoriaId() {
+        return categoriaId;
+    }
+
+    public void setCategoriaId(Long categoriaId) {
+        this.categoriaId = categoriaId;
+    }
+
+    
     @Override
     public String toString() {
-        return "Categoria{" + "id=" + id + ", nome=" + nome + '}';
+        return "Produto{" + "id=" + id + ", nome=" + nome + 
+                ", descricao=" + descricao + ", especificacao=" 
+                + especificacao + ", preco=" + preco + ", categoriaId=" 
+                + categoriaId + '}';
     }
+
+    
 
     @Override
     public int hashCode() {

@@ -24,6 +24,7 @@ public class BaseJF extends javax.swing.JFrame {
     private ManterUsuario manterUsuario;
     private ManterCategoria manterCategoria;
     private ManterFilial manterFilial;
+    private ManterProduto manterProduto;
     private JScrollPane jScrollPane;
 
     public BaseJF() {
@@ -33,7 +34,7 @@ public class BaseJF extends javax.swing.JFrame {
         callLogin();
         //callManterUsuario();
     }
-
+    
     protected void callManterUsuario() {
         removerTudo();
         initComponents();
@@ -73,6 +74,20 @@ public class BaseJF extends javax.swing.JFrame {
         //(800,600)
         jScrollPane.setLocation(150, 100);
         jScrollPane.setSize(500, 410);
+    }
+    public void callManterProduto(){
+        removerTudo();
+        initComponents();
+
+        manterProduto = new ManterProduto();
+        jScrollPane = new JScrollPane(manterProduto);
+        this.add(jScrollPane);
+
+        jScrollPane.setVisible(true);
+        //(800,600)
+        jScrollPane.setLocation(150, 100);
+        jScrollPane.setSize(500, 410);
+        
     }
 
     protected void removerTudo() {
@@ -116,6 +131,8 @@ public class BaseJF extends javax.swing.JFrame {
         jMICategoria = new javax.swing.JMenuItem();
         jMMFilial = new javax.swing.JMenu();
         jMIFilial = new javax.swing.JMenuItem();
+        jMMProdutos = new javax.swing.JMenu();
+        jMIProduto = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -191,6 +208,24 @@ public class BaseJF extends javax.swing.JFrame {
 
         jMenuBar1.add(jMMFilial);
 
+        jMMProdutos.setText("Produtos");
+        jMMProdutos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jMMProdutosFocusGained(evt);
+            }
+        });
+
+        jMIProduto.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        jMIProduto.setText("Manter Produto");
+        jMIProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIProdutoActionPerformed(evt);
+            }
+        });
+        jMMProdutos.add(jMIProduto);
+
+        jMenuBar1.add(jMMProdutos);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -235,6 +270,14 @@ public class BaseJF extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMMFilialFocusGained
 
+    private void jMIProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIProdutoActionPerformed
+        callManterProduto();
+    }//GEN-LAST:event_jMIProdutoActionPerformed
+
+    private void jMMProdutosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMProdutosFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMMProdutosFocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -275,9 +318,11 @@ public class BaseJF extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMICategoria;
     private javax.swing.JMenuItem jMIFilial;
     private javax.swing.JMenuItem jMILogar;
+    private javax.swing.JMenuItem jMIProduto;
     private javax.swing.JMenuItem jMIUsuario;
     private javax.swing.JMenu jMMCategoria;
     private javax.swing.JMenu jMMFilial;
+    private javax.swing.JMenu jMMProdutos;
     private javax.swing.JMenu jMMUsuario;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

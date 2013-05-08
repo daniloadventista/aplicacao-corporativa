@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head >
+        <title >K19 Treinamentos</title>
+    </h:head>
+    <h:body>
+        Valor: #{usuarioBean.numero} <br/>
+        Nome: #{usuarioBean.nome} <br/>
+        Senha: #{usuarioBean.senha} <br/>
+        CPF: #{usuarioBean.CPF} <br/>
+            RG: #{usuarioBean.RG} <br/>
+            Data de Nascimento: #{usuarioBean.dataNasc} <br/>
+            Email: #{usuarioBean.email} <br/>
+            CEP: #{usuarioBean.cep} <br/>
+            Endereco: #{usuarioBean.endereco} <br/>
+<!--            Sexo: #{usuarioBean.sexo} <br/>
+            Telefone: #{usuarioBean.telefone} <br/>
+            E Funcionario?: #{usuarioBean.isFunc} <br/>-->
+        <h:form><br/>
+            Valor               <h:inputText value ="#{usuarioBean.numero}" /><br/>
+            Nome                <h:inputText value ="#{usuarioBean.nome}" /><br/>
+            Senha               <h:inputSecret value ="#{usuarioBean.senha}" /><br/>
+            CPF                 <h:inputText value ="#{usuarioBean.CPF}" /><br/>
+            RG                  <h:inputText value ="#{usuarioBean.RG}" /><br/>
+            Data de Nascimento  <h:inputText value ="#{usuarioBean.dataNasc}" /><br/>
+            Email               <h:inputText value ="#{usuarioBean.email}" /><br/>
+            CEP                 <h:inputText value ="#{usuarioBean.cep}" /><br/>
+            Endereco            <h:inputText value ="#{usuarioBean.endereco}" /><br/>
+<!--            Sexo                <h:inputText value ="#{usuarioBean.sexo}" /><br/>
+            Telefone            <h:inputText value ="#{usuarioBean.telefone}" /><br/>
+            E Funcionario?      <h:selectBooleanCheckbox value ="#{usuarioBean.isFunc}" /><br/>-->
+            <h:commandButton value =" Altera"/>
+        </h:form>
+    </h:body>
+</html>

@@ -5,6 +5,7 @@
 package br.com.projii.controller;
 
 import br.com.projii.jpa.Usuario;
+import br.com.projii.jpa.facade.UsuarioFacade;
 import br.com.projii.jpa.facade.UsuarioFacadeRemote;
 import java.util.Date;
 import javax.ejb.EJB;
@@ -19,9 +20,12 @@ public class UsuarioBean {
 
     public UsuarioBean() {
         usuario = new Usuario("", "");
+        usuarioFacade = new UsuarioFacade();
     }
     private Usuario usuario;
     private int numero;
+    @EJB
+    private UsuarioFacadeRemote usuarioFacade;
 
     public void setNumero(int numero) {
         this.numero = numero;
@@ -64,7 +68,7 @@ public class UsuarioBean {
     }
 
     public void setTelefone(String telefone) {
-        this.usuario.setTelefone(telefone); 
+        this.usuario.setTelefone(telefone);
     }
 
     public String getEndereco() {
@@ -103,8 +107,8 @@ public class UsuarioBean {
         return this.usuario.getDataNasc();
     }
 
-    public void setDataNasc(String dataNasc) {
-        this.setDataNasc(dataNasc);
+    public void setDataNasc(Date dataNasc) {
+        usuario.setDataNasc(dataNasc);
     }
 
     public Long getRG() {
@@ -112,7 +116,7 @@ public class UsuarioBean {
     }
 
     public void setRG(Long RG) {
-        this.setRG(RG);
+        usuario.setRG(RG);
     }
 
     public Long getCPF() {
@@ -128,6 +132,19 @@ public class UsuarioBean {
     }
 
     public void setIsFunc(boolean isFunc) {
-        this.setIsFunc(isFunc);
+        usuario.setIsFunc(isFunc);
+    }
+    
+    public void create() {
+        if (!(usuarioFacade == null)) {
+            if (!(usuario == null)) {
+                try {
+                    usuarioFacade.create(usuario);
+                    System.out.println("Usuario Gravado.");
+                } catch (Exception e) {
+                    System.out.println("Erro ao gravar Usuario.");
+                }
+            }
+        }
     }
 }

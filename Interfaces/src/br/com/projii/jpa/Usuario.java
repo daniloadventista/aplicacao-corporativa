@@ -25,8 +25,6 @@ public class Usuario implements Serializable, Cloneable {
     private Long id;
     private String nome;
     private String senha;
-    private String endereco;
-    private Long cep;
     private char sexo;
     private String email;
     private String telefone;
@@ -74,22 +72,6 @@ public class Usuario implements Serializable, Cloneable {
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public Long getCep() {
-        return cep;
-    }
-
-    public void setCep(Long cep) {
-        this.cep = cep;
     }
 
     public char getSexo() {
@@ -142,10 +124,10 @@ public class Usuario implements Serializable, Cloneable {
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + ", nome=" + nome + ", senha=" + senha
-                + ", endereco=" + endereco + ", cep=" + cep + ", sexo=" + sexo
-                + ", email=" + email + ", telefone=" + telefone + ", dataNasc="
-                + dataNasc + ", RG=" + RG + ", CPF=" + CPF + ", isFunc=" + isFunc + '}';
+        return "Usuario{" + "id=" + id + ", nome=" + nome + ", senha=" + 
+                senha + ", sexo=" + sexo + ", email=" + email + ", telefone=" 
+                + telefone + ", dataNasc=" + dataNasc + ", RG=" + RG + ", CPF=" 
+                + CPF + ", isFunc=" + isFunc + '}';
     }
 
     @Override

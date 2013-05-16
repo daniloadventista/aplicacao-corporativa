@@ -17,8 +17,6 @@
         Data de Nascimento: #{usuarioBean.dataNasc} <br/>
         E Funcionario?: #{usuarioBean.isFunc} <br/>
         Email: #{usuarioBean.email} <br/>
-        CEP: #{usuarioBean.cep} <br/>
-        Endereco: #{usuarioBean.endereco} <br/>
         Sexo: #{usuarioBean.sexo} <br/>
         Telefone: #{usuarioBean.telefone} <br/>
         <h:form><br/>
@@ -33,8 +31,6 @@
             </h:inputText><br/>
             E Funcionario?      <h:selectBooleanCheckbox value ="#{usuarioBean.isFunc}" /><br/>
             Email               <h:inputText value ="#{usuarioBean.email}" /><br/>
-            CEP                 <h:inputText value ="#{usuarioBean.cep}" /><br/>
-            Endereco            <h:inputText value ="#{usuarioBean.endereco}" /><br/>
             Sexo                <h:selectOneRadio value="#{usuarioBean.sexo}">
                 <f:selectItem itemLabel="Masculino" itemValue="M"/>  
                 <f:selectItem itemLabel="Feminino" itemValue="F"/>

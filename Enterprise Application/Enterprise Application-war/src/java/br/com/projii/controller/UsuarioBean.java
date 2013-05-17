@@ -5,11 +5,13 @@
 package br.com.projii.controller;
 
 import br.com.projii.jpa.Usuario;
-import br.com.projii.jpa.facade.UsuarioFacade;
 import br.com.projii.jpa.facade.UsuarioFacadeRemote;
 import java.util.Date;
+import java.util.Properties;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 /**
  *
@@ -19,7 +21,21 @@ import javax.faces.bean.ManagedBean;
 public class UsuarioBean {
 
     public UsuarioBean() {
-        usuarioFacade = new UsuarioFacade();
+        try {
+            Properties props = new Properties();
+//            props.load(new java.io.FileInputStream("D:\\Temp\\comFaces\\"
+//                    + "aplicacao-corporativa\\Enterprise Application\\"
+//                    + "Enterprise Application-war\\jndi.properties"));
+            InitialContext ctx = new InitialContext();
+            usuarioFacade = (UsuarioFacadeRemote) ctx.lookup("ejb/UsuarioFacade");
+        } 
+//        catch (IOException e) {
+//            System.out.println("Jndi nao encontrado");
+//        }
+        catch (NamingException ex) {
+            System.out.println("Jndi : Naming exception");
+        }
+
     }
     private Usuario usuario;
     private int numero;

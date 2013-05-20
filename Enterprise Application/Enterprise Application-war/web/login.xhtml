@@ -1,0 +1,42 @@
+<ui:composition template ="/site.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                >
+    <ui:define name="corpo">  
+        <div id="welcome">
+            <h1 align="center">Login</h1>
+
+            <strong>Login: </strong> <br />
+
+            <div class="container" style="height: 503px;">
+                <div class="bodys">
+
+
+
+
+                    <h:form styleClass="rounded" id="contactform" >
+                        <div class="field">
+                            <label for="email">Email:</label> <h:inputText value ="#{usuarioBean.email}"/>
+                            <p class="hint">Digite seu Email!!!</p>
+                        </div>
+                        <div class="field">
+                            <label for="email">Senha:</label><h:inputSecret value ="#{usuarioBean.senha}"  />
+                            <p class="hint">Digite sua senha!!!</p>
+                        </div>
+                        <h:commandButton styleClass="botao3d" action="#{usuarioBean.login()}" value =" Enviar"/>
+
+                    </h:form>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+
+        </div>
+    </ui:define>
+
+</ui:composition>
+
+
+
+

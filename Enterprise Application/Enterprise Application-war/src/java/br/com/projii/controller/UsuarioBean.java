@@ -148,7 +148,7 @@ public class UsuarioBean {
         usuario.setDataNasc(this.getDataNasc());
         usuario.setEmail(this.getEmail());
         usuario.setIsFunc(this.isIsFunc());
-        usuario.setNome(this.getSenha());
+        usuario.setNome(this.getNome());
         usuario.setRG(this.getRG());
         usuario.setSenha(this.getSenha());
         usuario.setSexo(this.getSexo());

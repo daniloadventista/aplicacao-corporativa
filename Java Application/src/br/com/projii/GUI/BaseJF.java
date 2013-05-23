@@ -16,16 +16,6 @@ public class BaseJF extends javax.swing.JFrame {
      * Creates new form BaseJF
      */
     private String Usuario;
-    private long idUsuario;
-    private boolean isLogged;
-
-    public void setIsLogged(boolean isLogged) {
-        this.isLogged = isLogged;
-    }
-
-    public void setIdUsuario(long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
 
     public void setUsuario(String Usuario) {
         this.Usuario = Usuario;
@@ -261,12 +251,10 @@ public class BaseJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jMMUsuarioFocusGained
 
     private void jMIUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIUsuarioActionPerformed
-        if (this.isLogged)
         callManterUsuario();
     }//GEN-LAST:event_jMIUsuarioActionPerformed
 
     private void jMICategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICategoriaActionPerformed
-        if (this.isLogged)
         callManterCategoria();
     }//GEN-LAST:event_jMICategoriaActionPerformed
 
@@ -275,7 +263,6 @@ public class BaseJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jMMCategoriaFocusGained
 
     private void jMIFilialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIFilialActionPerformed
-        if (this.isLogged)
         callManterFilial();
     }//GEN-LAST:event_jMIFilialActionPerformed
 
@@ -284,7 +271,6 @@ public class BaseJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jMMFilialFocusGained
 
     private void jMIProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIProdutoActionPerformed
-        if (this.isLogged)
         callManterProduto();
     }//GEN-LAST:event_jMIProdutoActionPerformed
 

@@ -187,7 +187,7 @@ public class UsuarioBean {
         return usuarioFacade.find(id);
     }
 
-    public void login() {
+    public void login(){
         List<Usuario> usuarios = null;
         usuarios = this.findAll();
         

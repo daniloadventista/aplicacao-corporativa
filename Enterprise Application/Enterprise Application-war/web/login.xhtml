@@ -11,10 +11,6 @@
 
             <div class="container" style="height: 503px;">
                 <div class="bodys">
-
-
-
-
                     <h:form styleClass="rounded" id="contactform" >
                         <div class="field">
                             <label for="email">Email:</label> <h:inputText value ="#{usuarioBean.email}"/>
@@ -26,6 +22,8 @@
                         </div>
                         <h:commandButton styleClass="botao3d" action="#{usuarioBean.login()}" value =" Enviar"/>
 
+                            <h:outputText styleClass="" value="#{usuarioBean.loginMessage}"/>
+                        
                     </h:form>
                 </div>
             </div>

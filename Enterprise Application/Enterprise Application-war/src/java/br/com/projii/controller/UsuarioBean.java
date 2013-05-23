@@ -22,7 +22,7 @@ import javax.naming.NamingException;
 public class UsuarioBean {
 
     public UsuarioBean() {
-        loginMessage = "Usuario ";
+        loginMessage = "";
         try {
             Properties props = new Properties();
 //            props.load(new java.io.FileInputStream("D:\\Temp\\comFaces\\"
@@ -187,7 +187,7 @@ public class UsuarioBean {
         return usuarioFacade.find(id);
     }
 
-    public void login() {
+    public void login(){
         List<Usuario> usuarios = null;
         usuarios = this.findAll();
         

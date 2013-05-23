@@ -1,0 +1,14 @@
+
+a, a:visited {
+	color:blue;
+	text-decoration:none;
+}
+
+
+
+/*====================*/
+/*=== Other Styles ===*/
+/*====================*/
+.clear {
+	clear:both;
+}

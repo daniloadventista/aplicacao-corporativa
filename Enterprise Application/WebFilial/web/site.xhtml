@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+
+    <h:head>
+        <script type="text/javascript">
+            var _siteRoot = 'index.html', _root = 'index.html';
+        </script>
+        <script type="text/javascript" src="jquery/jquery.js"></script>
+        <script type="text/javascript" src="jquery/scripts.js"></script>
+
+        <script
+        src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script src="jquery/jquery.ui.core.js"></script>
+        <script src="jquery/jquery.ui.widget.js"></script>
+        <script src="jquery/jquery.ui.datepicker.js"></script>
+        <script type="text/javascript" src="jquery/jquery.nivo.slider.js"></script>
+
+        <script type="text/javascript">
+            function submitForm() {
+                document.forms[0].action = "UserAction.do?method=add";
+                document.forms[0].submit();
+            }
+        </script>
+        <script type="text/javascript">
+            $(window).load(function() {
+                $('#slider').nivoSlider();
+            });
+        </script>
+        <script>
+            $(function() {
+                $("#datepicker").datepicker();
+            });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#coin-slider').coinslider({
+                    width : 500,
+                    height : 313
+                });
+            });
+        </script>
+
+        <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+        <meta name="author" content="Phone2b" />
+
+        <meta http-equiv="X-UA-Compatible" content="IE=8" />
+
+        <script type="text/javascript" src="jquery/coin-slider.min.js"></script>
+
+        <link href="css/smart_cart.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="jquery/jquery.smartCart-2.0.js"></script>
+
+        <link rel="shortcut icon" type="image/x-icon" href="images/logo.ico"/>
+    </h:head>
+
+    <link rel="stylesheet" href="css/coin-slider-styles.css" type="text/css" />
+
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="css/nivo-slider.css" type="text/css"
+          media="screen" />
+    <link rel="stylesheet" href="css/styles.css" type="text/css"
+          media="screen" />
+    <link rel="stylesheet" media="screen" type="text/css"
+          href="css/android.css" />
+    <link rel="stylesheet" media="screen" type="text/css"
+          href="css/default.css" />
+    <link rel="stylesheet" media="screen" type="text/css"
+          href="css/layout.css" />
+    <link rel="stylesheet" href="css/jquery.ui.all.css"/>
+    <link rel="stylesheet" href="css/demos.css"/>
+    <h:body>
+
+        <div id="paginaTot" >
+            <div id="body" >
+                <!--		<tiles:insert attribute="topo" ignore="true" />-->
+                <ui:insert name="topo">
+
+                    <div id="header">
+                        <div id="img">
+                            <div class="slider-wrapper theme-default">
+                                <div style="background-color: #E0FFFF" id="slider" class="nivoSlider">
+                                    <img src="images/imagemani.jpg" data-thumb="images/imagemani.jpg"
+                                         alt="" /> 
+                                    <img src="images/imagemani.jpg" data-thumb="images/imagemani.jpg" 
+                                         alt="" data-transition="slideInLeft" /> 
+                                    <img src="images/imagemani.jpg" data-thumb="images/imagemani.jpg"
+                                         alt="" title="#htmlcaption" /> 
+                                    <img src="images/imagemani.jpg"
+                                         data-thumb="images/imagemani.jpg" alt="" title="#htmlcaption" /> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="home">
+                        <a href="#"><img src="images/logo.jpg" id="logo" /></a>
+
+                    </div>
+                </ui:insert>
+            </div>
+            <div class="clear"></div>
+            <ul id="menu">
+                <!--		<tiles:insert attribute="links" ignore="true" />-->
+                <ui:insert name="links">
+
+                    <li id="menu_link_first"><a href="home.xhtml">Inicio</a></li>
+                    <li class="menu_link"><a href="#">Minha conta</a></li>
+                    <li class="menu_link"><a href="#">Pedido</a></li>
+                    <li class="menu_link"><a href="#">Produtos</a></li>
+                    <li class="menu_link"><a href="#">Sugestões</a></li>
+                    <!--<li class="menu_link"><a href="#">Contato</a></li>-->
+                    <li class="menu_link"><a href="login.xhtml">Login</a></li>
+
+                </ui:insert>
+            </ul>
+
+
+            <div class="clear"></div>
+            <div id="content">
+                <div id="left">
+                    <br/>
+                    
+
+                    <div id='coin-slider'>
+                        <a href="#"> <img
+                                src='images/pendrive.jpg' />
+                        </a> <a href="#"> <img
+                                src='images/camera.jpg' />
+                        </a> <a href="#"> <img
+                                src='images/sonyvaio.jpg' />
+                        </a> <a href="#"> <img
+                                src='images/mp4.jpg' />
+                        </a>
+                    </div>
+
+                    <div>
+                        <h1 align="center">Calendario</h1>
+
+                        <div class="demo">
+                            <div id="datepicker"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div id="right">
+                <!--                        <tiles:insert attribute="corpo" ignore="true" />-->
+
+                <ui:insert name="corpo">
+
+                </ui:insert>
+                <div id="block_left">
+                </div>
+                <div id="block_right">
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div id="footer">
+                <!--                        <tiles:insert attribute="rodape" ignore="true" />-->
+                <ui:insert name="rodape">
+
+                    <h1>Template Web</h1>
+
+                </ui:insert>
+            </div>
+        </div>
+
+    </h:body>
+</html>

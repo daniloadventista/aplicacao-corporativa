@@ -7,6 +7,7 @@ package br.com.projii.controller;
 import br.com.projii.jpa.Usuario;
 import br.com.projii.jpa.facade.UsuarioFacadeRemote;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -21,6 +22,7 @@ import javax.naming.NamingException;
 public class UsuarioBean {
 
     public UsuarioBean() {
+        loginMessage = "Usuario ";
         try {
             Properties props = new Properties();
 //            props.load(new java.io.FileInputStream("D:\\Temp\\comFaces\\"
@@ -28,10 +30,9 @@ public class UsuarioBean {
 //                    + "Enterprise Application-war\\jndi.properties"));
             InitialContext ctx = new InitialContext();
             usuarioFacade = (UsuarioFacadeRemote) ctx.lookup("ejb/UsuarioFacade");
-        } 
-//        catch (IOException e) {
-//            System.out.println("Jndi nao encontrado");
-//        }
+        } //        catch (IOException e) {
+        //            System.out.println("Jndi nao encontrado");
+        //        }
         catch (NamingException ex) {
             System.out.println("Jndi : Naming exception");
         }
@@ -51,6 +52,11 @@ public class UsuarioBean {
     private Long RG;
     private Long CPF;
     private boolean isFunc;
+    private String loginMessage;
+
+    public String getLoginMessage() {
+        return loginMessage;
+    }
 
     public void setNumero(int numero) {
         this.numero = numero;
@@ -163,5 +169,46 @@ public class UsuarioBean {
             System.out.println(e.toString());
             System.out.println();
         }
+    }
+
+    public List<Usuario> findAll() {
+        return (usuarioFacade.findAll());
+    }
+
+    public void delete(Usuario entity) {
+        usuarioFacade.remove(entity);
+    }
+
+    public void update(Usuario entity) {
+        usuarioFacade.edit(entity);
+    }
+
+    public Usuario find(Object id) {
+        return usuarioFacade.find(id);
+    }
+
+    public void login() {
+        List<Usuario> usuarios = null;
+        usuarios = this.findAll();
+        
+        boolean existe = false;
+        for (Usuario usr : usuarios) {
+            if (this.email.equals(usr.getEmail())) {
+                existe = true;
+                if (senha.equals(usr.getSenha())) {
+                    System.out.println("Usuálio Logado");
+                    this.loginMessage = "Usuálio Logado";
+                    break;
+                } else {
+                    System.out.println("Senha Invalida");
+                    this.loginMessage = ("Senha Invalida");
+                }
+            }
+        }
+        if (!existe) {
+            System.out.println("Usuario Inexistente");
+            this.loginMessage = ("Usuario Inexistente");
+        }
+
     }
 }

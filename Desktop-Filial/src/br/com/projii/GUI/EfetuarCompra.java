@@ -48,12 +48,12 @@ public class EfetuarCompra extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
             return;
         }
-        Produto[] filiais = produtoController.findAll().toArray(new Produto[0]);
-        Object[][] objects = new Object[filiais.length][3];
-        for (int i = 0; i < filiais.length; i++) {
-            objects[i][0] = filiais[i].getId();
-            objects[i][1] = filiais[i].getNome();
-            objects[i][2] = filiais[i].getPreco();
+        Produto[] produtos = produtoController.findAll().toArray(new Produto[0]);
+        Object[][] objects = new Object[produtos.length][3];
+        for (int i = 0; i < produtos.length; i++) {
+            objects[i][0] = produtos[i].getId();
+            objects[i][1] = produtos[i].getNome();
+            objects[i][2] = produtos[i].getPreco();
         }
         jTProduto.setModel(new javax.swing.table.DefaultTableModel(
                 objects,
@@ -285,8 +285,11 @@ public class EfetuarCompra extends javax.swing.JPanel {
         resposta = (JOptionPane.showConfirmDialog(this, "Deseja inserir "
                 + "este produto ao carrinho", "System Mack",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE));
-        if (resposta==0)
+        if (resposta==0){
+            
+        }else{
         
+        }
         JOptionPane.showMessageDialog(this, resposta);
 
     }//GEN-LAST:event_jTProdutoMouseClicked

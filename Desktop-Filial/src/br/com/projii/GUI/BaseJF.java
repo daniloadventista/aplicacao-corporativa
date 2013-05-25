@@ -24,6 +24,8 @@ public class BaseJF extends javax.swing.JFrame {
     private PLogin login;
     private EfetuarCompra efetuarCompra;
     private JScrollPane jScrollPane;
+    private ConsultarPedidos consultaPedidos;
+    private FecharVendas fecharVendas;
 
     public BaseJF() {
         initComponents();
@@ -67,6 +69,32 @@ public class BaseJF extends javax.swing.JFrame {
         jScrollPane.setLocation(150, 100);
         jScrollPane.setSize(500, 410);
     }
+     private void callConsultarPedidos() {
+        removerTudo();
+        initComponents();
+
+        consultaPedidos = new ConsultarPedidos();
+        jScrollPane = new JScrollPane(consultaPedidos);
+        this.add(jScrollPane);
+
+        jScrollPane.setVisible(true);
+        //(800,600)
+        jScrollPane.setLocation(150, 100);
+        jScrollPane.setSize(500, 410);
+    }
+     private void callFecharVendas() {
+        removerTudo();
+        initComponents();
+
+        fecharVendas = new FecharVendas();
+        jScrollPane = new JScrollPane(fecharVendas);
+        this.add(jScrollPane);
+
+        jScrollPane.setVisible(true);
+        //(800,600)
+        jScrollPane.setLocation(150, 100);
+        jScrollPane.setSize(500, 410);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -84,6 +112,10 @@ public class BaseJF extends javax.swing.JFrame {
         jMILogar = new javax.swing.JMenuItem();
         jMMUsuario = new javax.swing.JMenu();
         jMICompra = new javax.swing.JMenuItem();
+        jMMUsuario1 = new javax.swing.JMenu();
+        jMIPedido = new javax.swing.JMenuItem();
+        jMMUsuario2 = new javax.swing.JMenu();
+        jMIRelatorio = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -123,6 +155,42 @@ public class BaseJF extends javax.swing.JFrame {
 
         jMenuBar1.add(jMMUsuario);
 
+        jMMUsuario1.setText("Pedido");
+        jMMUsuario1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jMMUsuario1FocusGained(evt);
+            }
+        });
+
+        jMIPedido.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        jMIPedido.setText("Consultar pedido");
+        jMIPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIPedidoActionPerformed(evt);
+            }
+        });
+        jMMUsuario1.add(jMIPedido);
+
+        jMenuBar1.add(jMMUsuario1);
+
+        jMMUsuario2.setText("Vendas");
+        jMMUsuario2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jMMUsuario2FocusGained(evt);
+            }
+        });
+
+        jMIRelatorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        jMIRelatorio.setText("Relatorio");
+        jMIRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIRelatorioActionPerformed(evt);
+            }
+        });
+        jMMUsuario2.add(jMIRelatorio);
+
+        jMenuBar1.add(jMMUsuario2);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -151,6 +219,22 @@ public class BaseJF extends javax.swing.JFrame {
     private void jMMUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMUsuarioFocusGained
 
     }//GEN-LAST:event_jMMUsuarioFocusGained
+
+    private void jMIPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIPedidoActionPerformed
+          callConsultarPedidos();
+    }//GEN-LAST:event_jMIPedidoActionPerformed
+
+    private void jMMUsuario1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMUsuario1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMMUsuario1FocusGained
+
+    private void jMIRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIRelatorioActionPerformed
+        callFecharVendas();
+    }//GEN-LAST:event_jMIRelatorioActionPerformed
+
+    private void jMMUsuario2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMUsuario2FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMMUsuario2FocusGained
 
     /**
      * @param args the command line arguments
@@ -191,7 +275,11 @@ public class BaseJF extends javax.swing.JFrame {
     private javax.swing.JMenu jMEditar;
     private javax.swing.JMenuItem jMICompra;
     private javax.swing.JMenuItem jMILogar;
+    private javax.swing.JMenuItem jMIPedido;
+    private javax.swing.JMenuItem jMIRelatorio;
     private javax.swing.JMenu jMMUsuario;
+    private javax.swing.JMenu jMMUsuario1;
+    private javax.swing.JMenu jMMUsuario2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables

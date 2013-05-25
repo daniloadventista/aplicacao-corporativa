@@ -58,8 +58,8 @@ public class EfetuarCompra extends javax.swing.JPanel {
         jTProduto.setModel(new javax.swing.table.DefaultTableModel(
                 objects,
                 new String[]{
-            "id", "Nome", "Preço"
-        }));
+                    "id", "Nome", "Preço"
+                }));
     }
 
     /**
@@ -273,6 +273,22 @@ public class EfetuarCompra extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProdutoMouseClicked
+        // TODO add your handling code here:
+        int linha = jTProduto.getSelectedRow();
+        int resposta;
+        long id;
+        if (!(jTProduto.getValueAt(linha, 0) == null)) {
+            id = Long.parseLong(jTProduto.getValueAt(linha, 0).toString());
+        }
+        
+        //0 = sim //1 = nao
+        resposta = (JOptionPane.showConfirmDialog(this, "Deseja inserir "
+                + "este produto ao carrinho", "System Mack",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE));
+        if (resposta==0)
+        
+        JOptionPane.showMessageDialog(this, resposta);
+
     }//GEN-LAST:event_jTProdutoMouseClicked
 
     private void jBFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFinalizarActionPerformed
@@ -295,14 +311,8 @@ public class EfetuarCompra extends javax.swing.JPanel {
     }//GEN-LAST:event_jBCancelarActionPerformed
 
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
-        // TODO add your handling code here:
-        int linha = jTProduto.getSelectedRow();
-        if (!(jTProduto.getValueAt(linha, 0) == null)) {
-//            jTFId.setText(jTProduto.getValueAt(linha, 0).toString());
-        }
-        
+        // TODO add your handling code here:        
     }//GEN-LAST:event_jScrollPane1MouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCancelar;
     private javax.swing.JButton jBFinalizar;

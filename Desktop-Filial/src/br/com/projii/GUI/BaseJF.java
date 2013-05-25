@@ -15,6 +15,7 @@ public class BaseJF extends javax.swing.JFrame {
     /**
      * Creates new form BaseJF
      */
+
     private String Usuario;
 
     public void setUsuario(String Usuario) {

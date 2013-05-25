@@ -21,10 +21,7 @@ public class BaseJF extends javax.swing.JFrame {
         this.Usuario = Usuario;
     }
     private PLogin login;
-    private ManterUsuario manterUsuario;
-    private ManterCategoria manterCategoria;
-    private ManterFilial manterFilial;
-    private ManterProduto manterProduto;
+    private EfetuarCompra efetuarCompra;
     private JScrollPane jScrollPane;
 
     public BaseJF() {
@@ -35,61 +32,6 @@ public class BaseJF extends javax.swing.JFrame {
         //callManterUsuario();
     }
     
-    protected void callManterUsuario() {
-        removerTudo();
-        initComponents();
-
-        manterUsuario = new ManterUsuario();
-        jScrollPane = new JScrollPane(manterUsuario);
-        this.add(jScrollPane);
-
-        jScrollPane.setVisible(true);
-        //(800,600)
-        jScrollPane.setLocation(50, 25);
-        jScrollPane.setSize(700, 500);
-    }
-
-    protected void callManterCategoria() {
-        removerTudo();
-        initComponents();
-
-        manterCategoria = new ManterCategoria();
-        jScrollPane = new JScrollPane(manterCategoria);
-        this.add(jScrollPane);
-
-        jScrollPane.setVisible(true);
-        //(800,600)
-        jScrollPane.setLocation(150, 100);
-        jScrollPane.setSize(500, 410);
-    }
-    protected void callManterFilial() {
-        removerTudo();
-        initComponents();
-
-        manterFilial = new ManterFilial();
-        jScrollPane = new JScrollPane(manterFilial);
-        this.add(jScrollPane);
-
-        jScrollPane.setVisible(true);
-        //(800,600)
-        jScrollPane.setLocation(150, 100);
-        jScrollPane.setSize(500, 410);
-    }
-    public void callManterProduto(){
-        removerTudo();
-        initComponents();
-
-        manterProduto = new ManterProduto();
-        jScrollPane = new JScrollPane(manterProduto);
-        this.add(jScrollPane);
-
-        jScrollPane.setVisible(true);
-        //(800,600)
-        jScrollPane.setLocation(150, 100);
-        jScrollPane.setSize(500, 410);
-        
-    }
-
     protected void removerTudo() {
         this.getContentPane().removeAll();
     }
@@ -110,6 +52,20 @@ public class BaseJF extends javax.swing.JFrame {
         login.setLocation(200, 100);
         login.setSize(400, 300);
     }
+    
+    private void callEfetuarCompra() {
+        removerTudo();
+        initComponents();
+
+        efetuarCompra = new EfetuarCompra();
+        jScrollPane = new JScrollPane(efetuarCompra);
+        this.add(jScrollPane);
+
+        jScrollPane.setVisible(true);
+        //(800,600)
+        jScrollPane.setLocation(150, 100);
+        jScrollPane.setSize(500, 410);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -126,13 +82,7 @@ public class BaseJF extends javax.swing.JFrame {
         jMEditar = new javax.swing.JMenu();
         jMILogar = new javax.swing.JMenuItem();
         jMMUsuario = new javax.swing.JMenu();
-        jMIUsuario = new javax.swing.JMenuItem();
-        jMMCategoria = new javax.swing.JMenu();
-        jMICategoria = new javax.swing.JMenuItem();
-        jMMFilial = new javax.swing.JMenu();
-        jMIFilial = new javax.swing.JMenuItem();
-        jMMProdutos = new javax.swing.JMenu();
-        jMIProduto = new javax.swing.JMenuItem();
+        jMICompra = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -154,77 +104,23 @@ public class BaseJF extends javax.swing.JFrame {
 
         jMenuBar1.add(jMEditar);
 
-        jMMUsuario.setText("Usuarios");
+        jMMUsuario.setText("Compra");
         jMMUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jMMUsuarioFocusGained(evt);
             }
         });
 
-        jMIUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
-        jMIUsuario.setText("Manter Usuario");
-        jMIUsuario.addActionListener(new java.awt.event.ActionListener() {
+        jMICompra.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        jMICompra.setText("Efetuar Compra");
+        jMICompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMIUsuarioActionPerformed(evt);
+                jMICompraActionPerformed(evt);
             }
         });
-        jMMUsuario.add(jMIUsuario);
+        jMMUsuario.add(jMICompra);
 
         jMenuBar1.add(jMMUsuario);
-
-        jMMCategoria.setText("Categorias");
-        jMMCategoria.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jMMCategoriaFocusGained(evt);
-            }
-        });
-
-        jMICategoria.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
-        jMICategoria.setText("Manter Categoria");
-        jMICategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMICategoriaActionPerformed(evt);
-            }
-        });
-        jMMCategoria.add(jMICategoria);
-
-        jMenuBar1.add(jMMCategoria);
-
-        jMMFilial.setText("Filiais");
-        jMMFilial.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jMMFilialFocusGained(evt);
-            }
-        });
-
-        jMIFilial.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
-        jMIFilial.setText("Manter Filial");
-        jMIFilial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMIFilialActionPerformed(evt);
-            }
-        });
-        jMMFilial.add(jMIFilial);
-
-        jMenuBar1.add(jMMFilial);
-
-        jMMProdutos.setText("Produtos");
-        jMMProdutos.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jMMProdutosFocusGained(evt);
-            }
-        });
-
-        jMIProduto.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
-        jMIProduto.setText("Manter Produto");
-        jMIProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMIProdutoActionPerformed(evt);
-            }
-        });
-        jMMProdutos.add(jMIProduto);
-
-        jMenuBar1.add(jMMProdutos);
 
         setJMenuBar(jMenuBar1);
 
@@ -247,36 +143,13 @@ public class BaseJF extends javax.swing.JFrame {
         callLogin();
     }//GEN-LAST:event_jMILogarActionPerformed
 
+    private void jMICompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICompraActionPerformed
+        callEfetuarCompra();
+    }//GEN-LAST:event_jMICompraActionPerformed
+
     private void jMMUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMUsuarioFocusGained
+
     }//GEN-LAST:event_jMMUsuarioFocusGained
-
-    private void jMIUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIUsuarioActionPerformed
-        callManterUsuario();
-    }//GEN-LAST:event_jMIUsuarioActionPerformed
-
-    private void jMICategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICategoriaActionPerformed
-        callManterCategoria();
-    }//GEN-LAST:event_jMICategoriaActionPerformed
-
-    private void jMMCategoriaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMCategoriaFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMMCategoriaFocusGained
-
-    private void jMIFilialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIFilialActionPerformed
-        callManterFilial();
-    }//GEN-LAST:event_jMIFilialActionPerformed
-
-    private void jMMFilialFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMFilialFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMMFilialFocusGained
-
-    private void jMIProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIProdutoActionPerformed
-        callManterProduto();
-    }//GEN-LAST:event_jMIProdutoActionPerformed
-
-    private void jMMProdutosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMProdutosFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMMProdutosFocusGained
 
     /**
      * @param args the command line arguments
@@ -315,16 +188,12 @@ public class BaseJF extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMArquivo;
     private javax.swing.JMenu jMEditar;
-    private javax.swing.JMenuItem jMICategoria;
-    private javax.swing.JMenuItem jMIFilial;
+    private javax.swing.JMenuItem jMICompra;
     private javax.swing.JMenuItem jMILogar;
-    private javax.swing.JMenuItem jMIProduto;
-    private javax.swing.JMenuItem jMIUsuario;
-    private javax.swing.JMenu jMMCategoria;
-    private javax.swing.JMenu jMMFilial;
-    private javax.swing.JMenu jMMProdutos;
     private javax.swing.JMenu jMMUsuario;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
+
+    
 }

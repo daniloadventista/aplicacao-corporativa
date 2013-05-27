@@ -280,15 +280,16 @@ public class EfetuarCompra extends javax.swing.JPanel {
         if (!(jTProduto.getValueAt(linha, 0) == null)) {
             id = Long.parseLong(jTProduto.getValueAt(linha, 0).toString());
         }
-        
+
+//        DefaultTableModel model = (DefaultTableModel) table.getModel();
+//        model.addRow(new Object[]{"Column 1", "Column 2", "Column 3"});
+
         //0 = sim //1 = nao
         resposta = (JOptionPane.showConfirmDialog(this, "Deseja inserir "
                 + "este produto ao carrinho", "System Mack",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE));
-        if (resposta==0){
-            
-        }else{
-        
+        if (resposta == 0) {
+        } else {
         }
         JOptionPane.showMessageDialog(this, resposta);
 

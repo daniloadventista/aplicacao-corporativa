@@ -2,7 +2,8 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                >
+                
+                xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="corpo">  
         <div id="welcome">
             <h1 align="center">Cadastre-se</h1>
@@ -17,23 +18,33 @@
                         <h3>Cadastro cliente:</h3>
 
                         <div class="field">
+                            <label for="nome">Nome:</label> <h:inputText value ="#{usuarioBean.nome}" styleClass="input"/>
+                            <p class="hint">Digite seu Nome!!!</p>
+                        </div>
+                        <div class="field">
                             <label for="email">Email:</label> <h:inputText value ="#{usuarioBean.email}" styleClass="input"/>
                             <p class="hint">Digite seu Email!!!</p>
+                        </div>
+                        <div class="field">
+                            <label for="dataNasc">Data/nascimento:</label> <h:inputText value="#{usuarioBean.dataNasc}" converterMessage="Data Inválida">  
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:inputText>
+                            <p class="hint">Digite sua data de nascimento!!!</p>
                         </div>
                         <div class="field">
                             <label for="senha">Senha:</label><h:inputSecret value ="#{usuarioBean.senha}" styleClass="input" />
                             <p class="hint">Digite sua senha!!!</p>
                         </div>
                         <div class="field">
-                            <label for="senha">Corfirmar Senha:</label><h:inputSecret value ="#{usuarioBean.senha}" styleClass="input" />
+                            <label for="senha">Corfirmar Senha:</label><h:inputSecret value ="#{usuarioBean.senha2}" styleClass="input" />
                             <p class="hint">Confirme sua senha!!!</p>
                         </div>
-                        
+
                         <div class="field">
                             <label for="telefone">Telefone:</label> <h:inputText value ="#{usuarioBean.telefone}" styleClass="input"/>
                             <p class="hint">Digite seu telefone!!!</p>
                         </div>
-                        
+
                         <div class="field">
                             <label for="cpf">CPF:</label> <h:inputText value ="#{usuarioBean.CPF}" styleClass="input"/>
                             <p class="hint">Digite seu CPF!!!</p>
@@ -42,14 +53,18 @@
                             <label for="rg">RG:</label> <h:inputText value ="#{usuarioBean.RG}" styleClass="input"/>
                             <p class="hint">Digite seu RG!!!</p>
                         </div>
-                        
+
                         <div class="field">
-                            <label for="rg">Sexo:</label> <h:inputText value ="#{usuarioBean.sexo}" styleClass="input"/>
+                            <label for="rg">Sexo:</label> <h:selectOneRadio value="#{usuarioBean.sexo}">
+                                <f:selectItem itemLabel="Masculino" itemValue="M"/>  
+                                <f:selectItem itemLabel="Feminino" itemValue="F"/>
+                            </h:selectOneRadio>
                             <p class="hint">Digite seu sexo!!!</p>
                         </div>
-                        
+
                         <h:commandButton styleClass="botao3d" action="#{usuarioBean.create()}" value ="Cadastrar"/>
 
+                        <h:outputText styleClass="" value="#{usuarioBean.loginMessage}"/>
                     </h:form>
                 </div>
             </div>

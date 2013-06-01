@@ -2,10 +2,74 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                >
+
+                xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="corpo">  
         <div id="welcome">
             <h1 align="center">Minha Conta</h1>
+            <div id="dataTable">
+          
+            <h:dataTable var="livro" value="#{usuarioBean.listarClientes}">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Nome"/>
+                    </f:facet>
+                    <h:outputText value="#{livro.nome}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Email"/>
+                    </f:facet>
+                    <h:outputText value="#{livro.email}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Senha"/>
+                    </f:facet>
+                    <h:outputText value="#{livro.senha}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Telefone"/>
+                    </f:facet>
+                    <h:outputText value="#{livro.telefone}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="CPF"/>
+                    </f:facet>
+                    <h:outputText value="#{livro.CPF}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="RG"/>
+                    </f:facet>
+                    <h:outputText value="#{livro.RG}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Sexo"/>
+                    </f:facet>
+                    <h:outputText value="#{livro.sexo}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Alterar"/>
+                    </f:facet>
+                    <h:form>
+                        <h:commandButton action="#{usuarioBean.prepararAlterarCliente}" value="Alterar"/>
+                    </h:form>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Excluir"/>
+                    </f:facet>
+                    <h:form>
+                        <h:commandButton action="#{usuarioBean.excluirCliente}" value="Excluir"/>
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+                  </div>
 
             <strong>Dados do cliente: </strong> <br />
 
@@ -17,38 +81,47 @@
                         <h3>Altera cliente:</h3>
 
                         <div class="field">
-                            <label for="email">Email:</label> <h:inputText value ="#{usuarioBean.email}" styleClass="input"/>
+                            <label for="nome">Nome:</label> <h:inputText value ="#{usuarioBean.usuario.nome}" styleClass="input"/>
+                            <p class="hint">Digite seu Nome!!!</p>
+                        </div>
+                        <div class="field">
+                            <label for="email">Email:</label> <h:inputText value ="#{usuarioBean.usuario.email}" styleClass="input"/>
                             <p class="hint">Digite seu Email!!!</p>
                         </div>
                         <div class="field">
-                            <label for="senha">Senha:</label><h:inputSecret value ="#{usuarioBean.senha}" styleClass="input" />
+                            <label for="dataNasc">Data/nascimento:</label> <h:inputText value="#{usuarioBean.usuario.dataNasc}" converterMessage="Data Inválida">  
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:inputText>
+                            <p class="hint">Digite sua data de nascimento!!!</p>
+                        </div>
+                        <div class="field">
+                            <label for="senha">Senha:</label><h:inputText value ="#{usuarioBean.usuario.senha}" styleClass="input" />
                             <p class="hint">Digite sua senha!!!</p>
                         </div>
+
                         <div class="field">
-                            <label for="senha">Corfirmar Senha:</label><h:inputSecret value ="#{usuarioBean.senha}" styleClass="input" />
-                            <p class="hint">Confirme sua senha!!!</p>
-                        </div>
-                        
-                        <div class="field">
-                            <label for="telefone">Telefone:</label> <h:inputText value ="#{usuarioBean.telefone}" styleClass="input"/>
+                            <label for="telefone">Telefone:</label> <h:inputText value ="#{usuarioBean.usuario.telefone}" styleClass="input"/>
                             <p class="hint">Digite seu telefone!!!</p>
                         </div>
-                        
+
                         <div class="field">
-                            <label for="cpf">CPF:</label> <h:inputText value ="#{usuarioBean.CPF}" styleClass="input"/>
+                            <label for="cpf">CPF:</label> <h:inputText value ="#{usuarioBean.usuario.CPF}" styleClass="input"/>
                             <p class="hint">Digite seu CPF!!!</p>
                         </div>
                         <div class="field">
-                            <label for="rg">RG:</label> <h:inputText value ="#{usuarioBean.RG}" styleClass="input"/>
+                            <label for="rg">RG:</label> <h:inputText value ="#{usuarioBean.usuario.RG}" styleClass="input"/>
                             <p class="hint">Digite seu RG!!!</p>
                         </div>
-                        
+
                         <div class="field">
-                            <label for="rg">Sexo:</label> <h:inputText value ="#{usuarioBean.sexo}" styleClass="input"/>
+                            <label for="rg">Sexo:</label> <h:selectOneRadio value="#{usuarioBean.usuario.sexo}">
+                                <f:selectItem itemLabel="Masculino" itemValue="M"/>  
+                                <f:selectItem itemLabel="Feminino" itemValue="F"/>
+                            </h:selectOneRadio>
                             <p class="hint">Digite seu sexo!!!</p>
                         </div>
-                        
-                        <h:commandButton styleClass="botao3d" action="#{usuarioBean.create()}" value ="Cadastrar"/>
+
+                        <h:commandButton styleClass="botao3d" action="#{usuarioBean.alterarCliente}" value ="Alterar"/>
 
                     </h:form>
                 </div>

@@ -5,9 +5,12 @@
 package br.com.projii.GUI;
 
 import br.com.projii.controller.CategoriaController;
+import br.com.projii.controller.ItemPedidoController;
+import br.com.projii.controller.PedidoController;
 import br.com.projii.controller.ProdutoController;
 import br.com.projii.jpa.Produto;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,6 +20,8 @@ public class EfetuarCompra extends javax.swing.JPanel {
 
     private ProdutoController produtoController = null;
     private CategoriaController categoriaController = null;
+    private PedidoController pedidoController = null;
+    private ItemPedidoController itemPedidoController = null;
 
     /**
      * Creates new form EfetuarCompra
@@ -58,8 +63,8 @@ public class EfetuarCompra extends javax.swing.JPanel {
         jTProduto.setModel(new javax.swing.table.DefaultTableModel(
                 objects,
                 new String[]{
-                    "id", "Nome", "Preço"
-                }));
+            "id", "Nome", "Preço"
+        }));
     }
 
     /**
@@ -276,10 +281,21 @@ public class EfetuarCompra extends javax.swing.JPanel {
         // TODO add your handling code here:
         int linha = jTProduto.getSelectedRow();
         int resposta;
-        long id;
+        long id = 0;
         if (!(jTProduto.getValueAt(linha, 0) == null)) {
             id = Long.parseLong(jTProduto.getValueAt(linha, 0).toString());
         }
+        //procura e exibe o produto
+        try {
+            if (produtoController == null) {
+                produtoController = new ProdutoController();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
+            return;
+        }
+        Produto p = produtoController.find(id);
+        JOptionPane.showMessageDialog(this, p.toString());
 
 //        DefaultTableModel model = (DefaultTableModel) table.getModel();
 //        model.addRow(new Object[]{"Column 1", "Column 2", "Column 3"});
@@ -289,13 +305,24 @@ public class EfetuarCompra extends javax.swing.JPanel {
                 + "este produto ao carrinho", "System Mack",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE));
         if (resposta == 0) {
-        } else {
-        }
-        JOptionPane.showMessageDialog(this, resposta);
-
+            String s;
+            int i = 0;
+            do {
+                s = JOptionPane.showInputDialog(this, "Quantidade ? ", "System Mack",
+                        JOptionPane.QUESTION_MESSAGE);
+                try{
+                    i = Integer.parseInt(s);
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(this, "Quantidade Invalida");
+                }
+            } while (i <= 0);
+            DefaultTableModel model = (DefaultTableModel) jTCart.getModel();
+            model.addRow(new Object[]{p.getId(), p.getNome(), p.getPreco(), i});
+        } 
     }//GEN-LAST:event_jTProdutoMouseClicked
 
     private void jBFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFinalizarActionPerformed
+        
     }//GEN-LAST:event_jBFinalizarActionPerformed
 
     private void jTFNome1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFNome1ActionPerformed

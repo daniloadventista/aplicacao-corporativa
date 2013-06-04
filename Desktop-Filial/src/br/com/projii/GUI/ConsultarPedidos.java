@@ -117,7 +117,7 @@ public class ConsultarPedidos extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTProduto);
 
-        jBFinalizar.setText("Encaminhar");
+        jBFinalizar.setText("Finalizar");
         jBFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBFinalizarActionPerformed(evt);
@@ -158,7 +158,7 @@ public class ConsultarPedidos extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(jTCart);
 
-        jLabel10.setText("Encaminhar pedidos pendentes:");
+        jLabel10.setText("Finalizar pedidos pendentes:");
 
         jBCancelar.setText("Cancelar");
         jBCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -183,7 +183,7 @@ public class ConsultarPedidos extends javax.swing.JPanel {
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                         .addGap(12, 12, 12))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -204,7 +204,7 @@ public class ConsultarPedidos extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBFinalizar)
                     .addComponent(jBCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleDescription("");

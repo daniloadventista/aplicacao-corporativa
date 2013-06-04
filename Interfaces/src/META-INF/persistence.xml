@@ -10,6 +10,8 @@
     <class>br.com.projii.jpa.Produto</class>
     <class>br.com.projii.jpa.ItemPedido</class>
     <class>br.com.projii.jpa.Pedido</class>
+    <class>br.com.projii.jpa.Endereco</class>
+    <class>br.com.projii.jpa.Estoque</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!--      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/sample"/>

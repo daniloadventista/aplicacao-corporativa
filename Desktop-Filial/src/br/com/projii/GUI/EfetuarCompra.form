@@ -38,33 +38,25 @@
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace type="unrelated" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel9" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="jLabel7" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jLabel9" pref="50" max="32767" attributes="0"/>
+                                  <Component id="jLabel7" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jTFNome1" min="-2" pref="99" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jTFNome2" min="-2" pref="99" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jBProcProdId" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jBProcProdNome" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="jTFNome" min="-2" pref="73" max="-2" attributes="0"/>
+                                  <Component id="jTFId" min="-2" pref="73" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jBProcProdId" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jBProcProdNome" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                              <Component id="jLabel8" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel8" pref="218" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   </Group>
@@ -89,12 +81,12 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTFNome1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTFId" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTFNome2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTFNome" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
@@ -114,7 +106,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="96" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -161,9 +153,9 @@
         <Property name="text" type="java.lang.String" value="id"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTFNome1">
+    <Component class="javax.swing.JTextField" name="jTFId">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTFNome1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTFIdActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
@@ -176,20 +168,26 @@
         <Property name="text" type="java.lang.String" value="nome"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTFNome2">
+    <Component class="javax.swing.JTextField" name="jTFNome">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTFNome2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTFNomeActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBProcProdId">
       <Properties>
         <Property name="text" type="java.lang.String" value="Procurar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBProcProdIdActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBProcProdNome">
       <Properties>
         <Property name="text" type="java.lang.String" value="Procurar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBProcProdNomeActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane3">
       <Properties>

@@ -5,42 +5,31 @@
 package br.com.projii.jpa;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
 
 /**
  *
  * @author 41080130 danilo lima
  */
 @Entity
-public class Pedido implements Serializable, Cloneable {
+public class Estoque implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long idUsuario;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dataPed;
-    private List<ItemPedido> ItensPedido;
+    private Long idProduto;
+    private Long idFilial;
+    private Long qtde;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
-    public List<ItemPedido> getItensPedido() {
-        return ItensPedido;
+    public Estoque() {
     }
-
-    protected Pedido() {
-    }
-
-    public Pedido(Long idUsuario) {
-        this.idUsuario = idUsuario;
+    
+    public Estoque(long idProduto) {
+        this.idProduto = idProduto;
     }
 
     public Long getId() {
@@ -51,29 +40,36 @@ public class Pedido implements Serializable, Cloneable {
         this.id = id;
     }
 
-    public Long getIdUsuario() {
-        return idUsuario;
+    public Long getIdProduto() {
+        return idProduto;
     }
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdProduto(Long idProduto) {
+        this.idProduto = idProduto;
     }
 
-    public Date getDataPed() {
-        return dataPed;
+    public Long getIdFilial() {
+        return idFilial;
     }
 
-    public void setDataPed(Date dataPed) {
-        this.dataPed = dataPed;
+    public void setIdFilial(Long idFilial) {
+        this.idFilial = idFilial;
+    }
+
+    public Long getQtde() {
+        return qtde;
+    }
+
+    public void setQtde(Long qtde) {
+        this.qtde = qtde;
     }
 
     @Override
     public String toString() {
-        return "Pedido{" + "id=" + id + ", idUsuario=" + idUsuario
-                + ", dataPed=" + dataPed.getDate() + "/" + dataPed.getMonth() + "/"
-                + (1900 + dataPed.getYear()) + '}';
+        return "Estoque{" + "id=" + id + ", idProduto=" + idProduto + 
+                ", idFilial=" + idFilial + ", qtde=" + qtde + '}';
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -84,10 +80,10 @@ public class Pedido implements Serializable, Cloneable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pedido)) {
+        if (!(object instanceof Estoque)) {
             return false;
         }
-        Pedido other = (Pedido) object;
+        Estoque other = (Estoque) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

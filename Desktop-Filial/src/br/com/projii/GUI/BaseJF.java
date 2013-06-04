@@ -17,12 +17,22 @@ public class BaseJF extends javax.swing.JFrame {
      */
 
     private String Usuario;
+    private long idUsuario;
+
+    public long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
     public void setUsuario(String Usuario) {
         this.Usuario = Usuario;
     }
     private PLogin login;
     private EfetuarCompra efetuarCompra;
+    private CheckOut checkOut;
     private JScrollPane jScrollPane;
     private ConsultarPedidos consultaPedidos;
     private FecharVendas fecharVendas;
@@ -60,8 +70,21 @@ public class BaseJF extends javax.swing.JFrame {
         removerTudo();
         initComponents();
 
-        efetuarCompra = new EfetuarCompra();
+        efetuarCompra = new EfetuarCompra(this);
         jScrollPane = new JScrollPane(efetuarCompra);
+        this.add(jScrollPane);
+
+        jScrollPane.setVisible(true);
+        //(800,600)
+        jScrollPane.setLocation(150, 100);
+        jScrollPane.setSize(500, 410);
+    }
+    public void callCheckOut(long idPedido) {
+        removerTudo();
+        initComponents();
+
+        checkOut = new CheckOut(idPedido);
+        jScrollPane = new JScrollPane(checkOut);
         this.add(jScrollPane);
 
         jScrollPane.setVisible(true);

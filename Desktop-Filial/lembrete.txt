@@ -1,4 +1,5 @@
 Criar classe estoque
+Quando emcaminhar da matriz já atualizo estoque automaticamente.
 
 ===============================****=============================================
 
@@ -27,7 +28,7 @@ Atributos:
 id
 idProduto
 idFilial
-
+qtde
 
 classe: Pedido
 Atributos:

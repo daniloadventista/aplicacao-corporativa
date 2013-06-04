@@ -5,14 +5,11 @@
 package br.com.projii.jpa;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
 
 /**
  *
@@ -27,9 +24,31 @@ public class ItemPedido implements Serializable, Cloneable {
     private Long id;
     private Long idProduto;
     private Long qtde;
+    @ManyToOne
     private Pedido pedido;
 
-    @ManyToOne
+    public ItemPedido(Long idProduto, Pedido pedido) {
+        this.idProduto = idProduto;
+        this.pedido = pedido;
+    }
+
+    public Long getIdProduto() {
+        return idProduto;
+    }
+
+    public void setIdProduto(Long idProduto) {
+        this.idProduto = idProduto;
+    }
+
+    public Long getQtde() {
+        return qtde;
+    }
+
+    public void setQtde(Long qtde) {
+        this.qtde = qtde;
+    }
+
+    
     public Pedido getPedido() {
         return pedido;
     }
@@ -44,6 +63,14 @@ public class ItemPedido implements Serializable, Cloneable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "ItemPedido{" + "id=" + id + ", idProduto=" + idProduto + ", qtde=" + qtde + ", pedido=" + 
+                pedido.getId() + '}';
+    }
+    
+    
 
     @Override
     public int hashCode() {

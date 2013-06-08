@@ -30,7 +30,7 @@
 .ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current { float:left; }
 
 /* with multiple calendars */
-.ui-datepicker.ui-datepicker-multi { width:221; }
+.ui-datepicker.ui-datepicker-multi { width:221px; }
 .ui-datepicker-multi .ui-datepicker-group { float:left; }
 .ui-datepicker-multi .ui-datepicker-group table { width:95%; margin:0 auto .4em; }
 .ui-datepicker-multi-2 .ui-datepicker-group { width:50%; }

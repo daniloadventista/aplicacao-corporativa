@@ -6,10 +6,7 @@ package br.com.projii.controller;
 
 import br.com.projii.jpa.Produto;
 import br.com.projii.jpa.facade.ProdutoFacadeRemote;
-import com.google.common.collect.Lists;
-import com.google.gson.Gson;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 import javax.ejb.EJB;
@@ -165,13 +162,12 @@ public class ProdutoBean {
         return produtoFacade.find(id);
     }
 
-    public String listarProdutos() {
-        Gson gson = new Gson();
+    public void listarProdutos() {
+      //  Gson gson = new Gson();
         List<Produto> prod = new ArrayList<Produto> ();
         prod = this.findAll();
-        String listString = gson.toJson(prod);       
-        System.out.print("testeete" + listString );
+        //String listString = gson.toJson(prod);       
+        System.out.print("testeete" + prod );
 
-        return listString;
     }
 }

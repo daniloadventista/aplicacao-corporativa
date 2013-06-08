@@ -2,7 +2,9 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                >
+
+                xmlns:f="http://java.sun.com/jsf/core">
+
     <ui:define name="corpo">
 
 
@@ -16,7 +18,8 @@
             <script type="text/javascript">
    
                 $(document).ready(function(){
-                    // Call Smart Cart    	
+                  /*  */
+
                     $('#SmartCart').smartCart();
                 });
             </script>
@@ -34,6 +37,19 @@
                                 <input type="hidden" pimage="products/product5.jpg" pprice="1150.00" pdesc="" pcategory="Mobile Phones" pname="Blackberry 8900" pid="105"/>
                                 <input type="hidden" pimage="products/product8.jpg" pprice="148.85" pdesc="" pcategory="Accessories" pname="Headphone with mic" pid="106"/>                       
                             </div>
+                            <!--
+                            LISTANDO PRODUTOS
+                            Dica: JQuery document(ready)
+                            1º Acessar via Ajax(JQuery) e retorna a lista de produtos transformar em json e retornar string
+                            2º Lista de Produtos -> JSON
+                            3º JSF Retorna JSON
+                            4º No JS pega JSON e transforma pra Objeto
+                            SALVANDO NO CARRINHO
+                            1º pega atributos do produto
+                            2º montar objeto no javascript
+                            3º transforma em JSON
+                            4º Jquery via AJAX (como chamar metodo JSF via AJAX pelo JQuery)
+                            -->
                             <!-- Smart Cart HTML Ends -->
                         </form>
                     </td></tr>

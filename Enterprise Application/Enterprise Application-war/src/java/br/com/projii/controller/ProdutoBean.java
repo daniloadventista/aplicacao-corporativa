@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Properties;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -162,12 +164,15 @@ public class ProdutoBean {
         return produtoFacade.find(id);
     }
 
-    public void listarProdutos() {
+    private DataModel listaProd;
+    
+    public DataModel getListarProdutos() {
       //  Gson gson = new Gson();
         List<Produto> prod = new ArrayList<Produto> ();
         prod = this.findAll();
         //String listString = gson.toJson(prod);       
-        System.out.print("testeete" + prod );
+        listaProd = new ListDataModel(prod);
+        return listaProd;
 
     }
 }

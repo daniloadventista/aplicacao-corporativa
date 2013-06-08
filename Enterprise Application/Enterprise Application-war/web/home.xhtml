@@ -23,6 +23,54 @@
                     $('#SmartCart').smartCart();
                 });
             </script>
+            
+            
+            <h:dataTable var="produto" value="#{produtoBean.listarProdutos}">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Nome"/>
+                </f:facet>
+                <h:outputText value="#{produto.nome}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Descrição"/>
+                </f:facet>
+                <h:outputText value="#{produto.descricao}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Especificação"/>
+                </f:facet>
+                <h:outputText value="#{produto.especificacao}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Preço"/>
+                </f:facet>
+                <h:outputText value="#{produto.preco}"/>
+            </h:column>
+                <f:facet name="header">
+                    <h:outputText value="Produtosx  "/>
+                </f:facet>
+                <h:form>
+                    <h:commandButton action="#" value="Alterar"/>
+                    </h:form>
+        </h:dataTable>
+        <br/>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 
             <table align="center" border="0" cellpadding="0" cellspacing="0">
                 <tr><td>  

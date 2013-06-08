@@ -6,70 +6,26 @@
                 xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="corpo">  
         <div id="welcome">
-            <h1 align="center">Minha Conta</h1>
+            <h1 align="center">Minha Conta</h1> 
+            <h:form style="margin-left: 670px;">
+                <h:commandButton action="#{usuarioBean.logout}" value="Sair"/>
+            </h:form>
             <div id="dataTable">
-          
-            <h:dataTable var="livro" value="#{usuarioBean.listarClientes}">
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Nome"/>
-                    </f:facet>
-                    <h:outputText value="#{livro.nome}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Email"/>
-                    </f:facet>
-                    <h:outputText value="#{livro.email}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Senha"/>
-                    </f:facet>
-                    <h:outputText value="#{livro.senha}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Telefone"/>
-                    </f:facet>
-                    <h:outputText value="#{livro.telefone}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="CPF"/>
-                    </f:facet>
-                    <h:outputText value="#{livro.CPF}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="RG"/>
-                    </f:facet>
-                    <h:outputText value="#{livro.RG}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Sexo"/>
-                    </f:facet>
-                    <h:outputText value="#{livro.sexo}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Alterar"/>
-                    </f:facet>
-                    <h:form>
-                        <h:commandButton action="#{usuarioBean.prepararAlterarCliente}" value="Alterar"/>
-                    </h:form>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Excluir"/>
-                    </f:facet>
-                    <h:form>
-                        <h:commandButton action="#{usuarioBean.excluirCliente}" value="Excluir"/>
-                    </h:form>
-                </h:column>
-            </h:dataTable>
-                  </div>
+                Id: ${user.id} <br/>
+                Nome: ${user.nome} <br/>
+                Email: ${user.email} <br/>
+                Senha: ${user.senha} <br/>
+                Telefone ${user.telefone} <br/>
+                CPF: ${user.CPF}<br/>
+                RG: ${user.RG} <br/>
+                Sexo: ${user.sexo}
+                <h:form>
+                    <h:commandButton action="#{usuarioBean.excluirCliente}" value="Excluir"/>
+                </h:form>
+
+
+
+            </div>
 
             <strong>Dados do cliente: </strong> <br />
 
@@ -81,7 +37,7 @@
                         <h3>Altera cliente:</h3>
 
                         <div class="field">
-                            <label for="nome">Nome:</label> <h:inputText value ="#{usuarioBean.usuario.nome}" styleClass="input"/>
+                            <label for="nome">Nome:</label> <h:inputText value ="#{usuarioBean.usuario.nome}" styleClass="input" />
                             <p class="hint">Digite seu Nome!!!</p>
                         </div>
                         <div class="field">
@@ -114,7 +70,7 @@
                         </div>
 
                         <div class="field">
-                            <label for="rg">Sexo:</label> <h:selectOneRadio value="#{usuarioBean.usuario.sexo}">
+                            <label for="sexo">Sexo:</label> <h:selectOneRadio value="#{usuarioBean.usuario.sexo}">
                                 <f:selectItem itemLabel="Masculino" itemValue="M"/>  
                                 <f:selectItem itemLabel="Feminino" itemValue="F"/>
                             </h:selectOneRadio>

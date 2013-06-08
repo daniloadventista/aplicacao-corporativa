@@ -12,6 +12,7 @@
         <title>EJB Stateful</title>
     </head>
     <body>
+        ${usr.id} - ${usr.nome}
         <h1>EJB Stateful</h1>
         <h2>Entre com os valores:</h2>
         <form action="EJBStatefulServlet" method="post">

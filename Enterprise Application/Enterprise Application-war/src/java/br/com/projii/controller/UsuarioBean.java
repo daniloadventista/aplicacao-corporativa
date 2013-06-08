@@ -6,10 +6,11 @@ package br.com.projii.controller;
 
 import br.com.projii.jpa.Usuario;
 import br.com.projii.jpa.facade.UsuarioFacadeRemote;
-import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -18,6 +19,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -219,9 +221,13 @@ public class UsuarioBean {
                 if (senha.equals(usr.getSenha())) {
                     System.out.println("Usuálio Logado");
                     this.loginMessage = "Usuálio Logado";
-                  //  callFind(usr.getId());
-                   // FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nome", nome);
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("/Enterprise_Application-war/minhaConta.xhtml");
+                    //  callFind(usr.getId());
+                    //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nome", nome);
+                    HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                    sessao.setAttribute("user", usr);
+                    setUsuario(usr);
+                   // FacesContext.getCurrentInstance().getExternalContext().redirect("/Enterprise_Application-war/minhaConta.xhtml");
+                    break;
                 } else {
                     //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
                     System.out.println("Senha Invalida");
@@ -233,31 +239,47 @@ public class UsuarioBean {
             System.out.println("Usuario Inexistente");
             this.loginMessage = ("Usuario Inexistente");
         }
-        return "";
+        return "minhaConta";
     }
 
-//    public void callFind(long id) {
-//        try {
-//
-//            this.setUsuario(find(id));
-//            this.nome = getUsuario().getNome();
-//            this.email = getUsuario().getEmail();
-//            this.senha = getUsuario().getSenha();
-//            this.telefone = getUsuario().getTelefone();
-//            this.CPF = getUsuario().getCPF();
-//            this.RG = getUsuario().getRG();
-//            this.dataNasc = getUsuario().getDataNasc();
-//            this.sexo = getUsuario().getSexo();
-//
-//        } catch (Exception e) {
-//            System.out.print("buscar");
-//        }
-//    }
+    public String logout() throws IOException {
+        Map sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+        sessionMap.clear();
+        return "login";
+    }
 
-       public String alterarCliente(){
+    public void callFind(long id) {
+        try {
 
-        UsuarioBean user =  new UsuarioBean();
-        user.update(usuario);
+            this.setUsuario(find(id));
+            this.nome = getUsuario().getNome();
+            this.email = getUsuario().getEmail();
+            this.senha = getUsuario().getSenha();
+            this.telefone = getUsuario().getTelefone();
+            this.CPF = getUsuario().getCPF();
+            this.RG = getUsuario().getRG();
+            this.dataNasc = getUsuario().getDataNasc();
+            this.sexo = getUsuario().getSexo();
+
+        } catch (Exception e) {
+            System.out.print("buscar");
+        }
+    }
+
+    public String alterarCliente() {
+        UsuarioBean bean = new UsuarioBean();
+        usuario = bean.find(id);
+        usuario.setCPF(this.getCPF());
+        usuario.setDataNasc(this.getDataNasc());
+        usuario.setEmail(this.getEmail());
+        usuario.setIsFunc(this.isIsFunc());
+        usuario.setNome(this.getNome());
+        usuario.setRG(this.getRG());
+        usuario.setSenha(this.getSenha());
+        usuario.setSexo(this.getSexo());
+        usuario.setTelefone(this.getTelefone());
+        
+        bean.update(usuario);
         return "minhaConta";
 
     }
@@ -269,22 +291,26 @@ public class UsuarioBean {
 //        for (Usuario usr : usuarios) {
 //
 //            if (this.email.equals(usr.getEmail()) && senha.equals(usr.getSenha())) {
-                List<Usuario> lista = new UsuarioBean().findAll();
-                listaDados = new ListDataModel(lista);
+        //List<Usuario> lista = new UsuarioBean().findAll();
+        List<Usuario> lista = new ArrayList<Usuario>();
+        lista.add(usuario);
+        listaDados = new ListDataModel(lista);
 //                
 //            }
 //        }
-                return listaDados;
+        return listaDados;
 
     }
-    public String prepararAlterarCliente(){
-        setUsuario((Usuario)(listaDados.getRowData()));
+       
+    public String prepararAlterarCliente() {
+        setUsuario((Usuario) (listaDados.getRowData()));
+     
         return "minhaConta";
     }
-    
-    public String excluirCliente(){
 
-        Usuario cad = (Usuario)(listaDados.getRowData());
+    public String excluirCliente() {
+
+        Usuario cad = (Usuario) (listaDados.getRowData());
         UsuarioBean user = new UsuarioBean();
         user.delete(cad);
         return "minhaConta";

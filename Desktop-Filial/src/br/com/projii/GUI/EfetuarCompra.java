@@ -5,28 +5,39 @@
 package br.com.projii.GUI;
 
 import br.com.projii.controller.CategoriaController;
+import br.com.projii.controller.ItemPedidoController;
+import br.com.projii.controller.PedidoController;
 import br.com.projii.controller.ProdutoController;
+import br.com.projii.jpa.ItemPedido;
+import br.com.projii.jpa.Pedido;
 import br.com.projii.jpa.Produto;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author dj002
  */
 public class EfetuarCompra extends javax.swing.JPanel {
-
+    
+    private BaseJF parent;
     private ProdutoController produtoController = null;
     private CategoriaController categoriaController = null;
+    private PedidoController pedidoController = null;
+    private ItemPedidoController itemPedidoController = null;
 
     /**
      * Creates new form EfetuarCompra
      */
-    public EfetuarCompra() {
+    public EfetuarCompra(BaseJF parent) {
+        this.parent = parent;
         initComponents();
         atualizarJTProduto();
         ajustaTablePreferences();
     }
-
+    
     private void ajustaTablePreferences() {
 //        jTProduto.setSize(1500, 300);
         jTProduto.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -36,9 +47,9 @@ public class EfetuarCompra extends javax.swing.JPanel {
         jTCart.getColumnModel().getColumn(1).setPreferredWidth(100);
         jTCart.getColumnModel().getColumn(2).setPreferredWidth(60);
         jTCart.getColumnModel().getColumn(3).setPreferredWidth(40);
-
+        
     }
-
+    
     public void atualizarJTProduto() {
         try {
             if (produtoController == null) {
@@ -61,6 +72,54 @@ public class EfetuarCompra extends javax.swing.JPanel {
                     "id", "Nome", "Preço"
                 }));
     }
+    
+    public void atualizarJTCart() {
+        Object[][] objects = new Object[0][4];
+        jTCart.setModel(new javax.swing.table.DefaultTableModel(
+                objects,
+                new String[]{
+                    "id", "Nome", "Preço", "Qtde"
+                }));
+    }
+    
+    public void insereNoJTCart(long id) {
+        try {
+            if (produtoController == null) {
+                produtoController = new ProdutoController();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
+            return;
+        }
+        int resposta;
+        Produto p = produtoController.find(id);
+        
+        JOptionPane.showMessageDialog(this, p.toString());
+
+//        DefaultTableModel model = (DefaultTableModel) table.getModel();
+//        model.addRow(new Object[]{"Column 1", "Column 2", "Column 3"});
+
+        //0 = sim //1 = nao
+        resposta = (JOptionPane.showConfirmDialog(this, "Deseja inserir "
+                + "este produto ao carrinho", "System Mack",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE));
+        if (resposta == 0) {
+            String s;
+            int i = 0;
+            do {
+                s = JOptionPane.showInputDialog(this, "Quantidade ? ", "System Mack",
+                        JOptionPane.QUESTION_MESSAGE);
+                try {
+                    i = Integer.parseInt(s);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Quantidade Invalida");
+                }
+            } while (i <= 0);
+            DefaultTableModel model = (DefaultTableModel) jTCart.getModel();
+            model.addRow(new Object[]{p.getId(), p.getNome(), p.getPreco(), i});
+        }
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -75,10 +134,10 @@ public class EfetuarCompra extends javax.swing.JPanel {
         jTProduto = new javax.swing.JTable();
         jBFinalizar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jTFNome1 = new javax.swing.JTextField();
+        jTFId = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTFNome2 = new javax.swing.JTextField();
+        jTFNome = new javax.swing.JTextField();
         jBProcProdId = new javax.swing.JButton();
         jBProcProdNome = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -135,9 +194,9 @@ public class EfetuarCompra extends javax.swing.JPanel {
 
         jLabel7.setText("id");
 
-        jTFNome1.addActionListener(new java.awt.event.ActionListener() {
+        jTFId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFNome1ActionPerformed(evt);
+                jTFIdActionPerformed(evt);
             }
         });
 
@@ -145,15 +204,25 @@ public class EfetuarCompra extends javax.swing.JPanel {
 
         jLabel9.setText("nome");
 
-        jTFNome2.addActionListener(new java.awt.event.ActionListener() {
+        jTFNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFNome2ActionPerformed(evt);
+                jTFNomeActionPerformed(evt);
             }
         });
 
         jBProcProdId.setText("Procurar");
+        jBProcProdId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBProcProdIdActionPerformed(evt);
+            }
+        });
 
         jBProcProdNome.setText("Procurar");
+        jBProcProdNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBProcProdNomeActionPerformed(evt);
+            }
+        });
 
         jScrollPane3.setPreferredSize(new java.awt.Dimension(1000, 280));
 
@@ -211,26 +280,21 @@ public class EfetuarCompra extends javax.swing.JPanel {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTFNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTFNome2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jBProcProdId, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jBProcProdNome, javax.swing.GroupLayout.Alignment.TRAILING)))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTFId, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jBProcProdId, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jBProcProdNome, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
                         .addGap(12, 12, 12))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -248,11 +312,11 @@ public class EfetuarCompra extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTFNome1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTFId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTFNome2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
                         .addGap(8, 8, 8)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
@@ -266,7 +330,7 @@ public class EfetuarCompra extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBFinalizar)
                             .addComponent(jBCancelar))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleDescription("");
@@ -275,48 +339,137 @@ public class EfetuarCompra extends javax.swing.JPanel {
     private void jTProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProdutoMouseClicked
         // TODO add your handling code here:
         int linha = jTProduto.getSelectedRow();
-        int resposta;
-        long id;
+        long id = 0;
         if (!(jTProduto.getValueAt(linha, 0) == null)) {
             id = Long.parseLong(jTProduto.getValueAt(linha, 0).toString());
         }
-
-//        DefaultTableModel model = (DefaultTableModel) table.getModel();
-//        model.addRow(new Object[]{"Column 1", "Column 2", "Column 3"});
-
-        //0 = sim //1 = nao
-        resposta = (JOptionPane.showConfirmDialog(this, "Deseja inserir "
-                + "este produto ao carrinho", "System Mack",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE));
-        if (resposta == 0) {
-        } else {
-        }
-        JOptionPane.showMessageDialog(this, resposta);
-
+        //procura e exibe o produto
+        insereNoJTCart(id);
     }//GEN-LAST:event_jTProdutoMouseClicked
-
+    
     private void jBFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFinalizarActionPerformed
+        try {
+            if (pedidoController == null) {
+                pedidoController = new PedidoController();
+            }
+            if (itemPedidoController == null) {
+                itemPedidoController = new ItemPedidoController();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
+            return;
+        }
+        
+        if (jTCart.getRowCount() > 0) {
+            
+            Pedido pedido = new Pedido(parent.getIdUsuario());
+            Date date = new Date();
+            pedido.setDataPed(new Date());
+            pedidoController.create(pedido);
+            
+            List<Pedido> pedidos;
+            pedidos = pedidoController.findAll();
+            
+            for (Pedido ped : pedidos) {
+                if (ped.getDataPed().equals(date)) {
+                    pedido = ped;
+                }
+            }
+
+//        
+            for (int i = 0; i < jTCart.getRowCount(); i++) {
+                //get id do carrinho
+                long id;
+                id = Long.parseLong(jTCart.getValueAt(i, 0).toString());
+                long qtde;
+                qtde = Long.parseLong(jTCart.getValueAt(i, 3).toString());
+                ItemPedido itemPedido = new ItemPedido(
+                        id, pedido);
+                itemPedido.setQtde(qtde);
+                itemPedidoController.create(itemPedido);
+            }
+            
+            atualizarJTCart();
+            this.parent.callCheckOut(pedido.getId());
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Nao Ha Produtos", "System Mack",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        
     }//GEN-LAST:event_jBFinalizarActionPerformed
-
-    private void jTFNome1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFNome1ActionPerformed
+    
+    private void jTFIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTFNome1ActionPerformed
-
-    private void jTFNome2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFNome2ActionPerformed
+    }//GEN-LAST:event_jTFIdActionPerformed
+    
+    private void jTFNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTFNome2ActionPerformed
-
+    }//GEN-LAST:event_jTFNomeActionPerformed
+    
     private void jTCartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTCartMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jTCartMouseClicked
-
+    
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBCancelarActionPerformed
-
+    
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
         // TODO add your handling code here:        
     }//GEN-LAST:event_jScrollPane1MouseClicked
+    
+    private void jBProcProdIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBProcProdIdActionPerformed
+        try {
+            if (produtoController == null) {
+                produtoController = new ProdutoController();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
+            return;
+        }
+        Produto produto;
+        try {
+            long idP = Long.parseLong(jTFId.getText());
+            produto = produtoController.find(idP);
+            insereNoJTCart(idP);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Produtos nao encontrado", "System Mack",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jBProcProdIdActionPerformed
+    
+    private void jBProcProdNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBProcProdNomeActionPerformed
+        try {
+            if (produtoController == null) {
+                produtoController = new ProdutoController();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
+            return;
+        }
+        List<Produto> produtos;
+        try {
+            long idP = 0;
+            String nome = jTFNome.getText();
+            produtos = produtoController.findAll();
+            for (Produto produto : produtos) {
+                if(produto.getNome().equals(nome)){
+                    idP = produto.getId();
+                }
+            }
+            if (idP != 0) {
+                insereNoJTCart(idP);
+            } else {
+                JOptionPane.showMessageDialog(this, "Produto nao encontrado", "System Mack",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Produto nao encontrado", "System Mack",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jBProcProdNomeActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCancelar;
     private javax.swing.JButton jBFinalizar;
@@ -329,8 +482,8 @@ public class EfetuarCompra extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTCart;
-    private javax.swing.JTextField jTFNome1;
-    private javax.swing.JTextField jTFNome2;
+    private javax.swing.JTextField jTFId;
+    private javax.swing.JTextField jTFNome;
     private javax.swing.JTable jTProduto;
     // End of variables declaration//GEN-END:variables
 }

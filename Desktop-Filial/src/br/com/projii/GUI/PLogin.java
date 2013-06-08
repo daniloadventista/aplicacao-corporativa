@@ -110,6 +110,7 @@ public class PLogin extends javax.swing.JPanel {
                 if (strSenha.equals(usr.getSenha())){
                     JOptionPane.showMessageDialog(this, "Usuálio Logado");
                     this.Parent.setUsuario(usr.getNome());
+                    this.Parent.setIdUsuario(usr.getId());
                     this.Parent.atualizaUsr();
                     break;
                 }

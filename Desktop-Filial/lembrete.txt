@@ -1,0 +1,64 @@
+Criar classe estoque
+Quando emcaminhar da matriz já atualizo estoque automaticamente.
+
+===============================****=============================================
+
+classe: Categoria
+Atributos:
+id
+nome
+
+classe: Produto
+Atributos:
+id
+nome
+descricao
+especificacao
+preco
+categoriaId
+
+classe: Filial
+Atributos:
+id
+nome
+endereco
+
+classe: Estoque
+Atributos:
+id
+idProduto
+idFilial
+qtde
+
+classe: Pedido
+Atributos:
+id
+idUsuario
+data
+
+classe: ItemPedido
+Atributos:
+idPedido
+idProduto
+qtde
+
+classe: Usuario
+Atributos:
+private Long id;
+    private String nome;
+    private String senha;
+    private String endereco;
+    private Long cep;
+    private char sexo;
+    private String email;
+    private String telefone;
+    private Date dataNasc;
+    private Long RG;
+    private Long CPF;
+
+classe: Endereco
+Atributos:
+private Long id;
+    private String endereco;
+    private Long cep;
+    idUsuario

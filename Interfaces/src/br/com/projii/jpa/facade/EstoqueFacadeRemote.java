@@ -28,5 +28,7 @@ public interface EstoqueFacadeRemote {
     List<Estoque> findRange(int[] range);
 
     int count();
+
+    public List<Estoque> csPorId(Long idProduto);
     
 }

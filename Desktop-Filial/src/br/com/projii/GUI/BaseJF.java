@@ -18,7 +18,16 @@ public class BaseJF extends javax.swing.JFrame {
 
     private String Usuario;
     private long idUsuario;
+    private String sFilial;
 
+    public String getSFilial() {
+        return sFilial;
+    }
+
+    public void setSFilial(String sFilial) {
+        this.sFilial = sFilial;
+    }
+    
     public long getIdUsuario() {
         return idUsuario;
     }
@@ -30,6 +39,7 @@ public class BaseJF extends javax.swing.JFrame {
     public void setUsuario(String Usuario) {
         this.Usuario = Usuario;
     }
+    private ManterEstoque manterEstoque;
     private PLogin login;
     private EfetuarCompra efetuarCompra;
     private CheckOut checkOut;
@@ -72,6 +82,19 @@ public class BaseJF extends javax.swing.JFrame {
 
         efetuarCompra = new EfetuarCompra(this);
         jScrollPane = new JScrollPane(efetuarCompra);
+        this.add(jScrollPane);
+
+        jScrollPane.setVisible(true);
+        //(800,600)
+        jScrollPane.setLocation(150, 100);
+        jScrollPane.setSize(500, 410);
+    }
+    private void callManterEstoque() {
+        removerTudo();
+        initComponents();
+
+        manterEstoque = new ManterEstoque(this);
+        jScrollPane = new JScrollPane(manterEstoque);
         this.add(jScrollPane);
 
         jScrollPane.setVisible(true);
@@ -139,6 +162,8 @@ public class BaseJF extends javax.swing.JFrame {
         jMIPedido = new javax.swing.JMenuItem();
         jMMUsuario2 = new javax.swing.JMenu();
         jMIRelatorio = new javax.swing.JMenuItem();
+        jMMEstoque = new javax.swing.JMenu();
+        jMIEstoque = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -214,6 +239,24 @@ public class BaseJF extends javax.swing.JFrame {
 
         jMenuBar1.add(jMMUsuario2);
 
+        jMMEstoque.setText("Estoque");
+        jMMEstoque.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jMMEstoqueFocusGained(evt);
+            }
+        });
+
+        jMIEstoque.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        jMIEstoque.setText("Manter Estoque");
+        jMIEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIEstoqueActionPerformed(evt);
+            }
+        });
+        jMMEstoque.add(jMIEstoque);
+
+        jMenuBar1.add(jMMEstoque);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -252,12 +295,20 @@ public class BaseJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jMMUsuario1FocusGained
 
     private void jMIRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIRelatorioActionPerformed
-        callFecharVendas();
+        
     }//GEN-LAST:event_jMIRelatorioActionPerformed
 
     private void jMMUsuario2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMUsuario2FocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_jMMUsuario2FocusGained
+
+    private void jMIEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIEstoqueActionPerformed
+        callManterEstoque();
+    }//GEN-LAST:event_jMIEstoqueActionPerformed
+
+    private void jMMEstoqueFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMEstoqueFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMMEstoqueFocusGained
 
     /**
      * @param args the command line arguments
@@ -297,9 +348,11 @@ public class BaseJF extends javax.swing.JFrame {
     private javax.swing.JMenu jMArquivo;
     private javax.swing.JMenu jMEditar;
     private javax.swing.JMenuItem jMICompra;
+    private javax.swing.JMenuItem jMIEstoque;
     private javax.swing.JMenuItem jMILogar;
     private javax.swing.JMenuItem jMIPedido;
     private javax.swing.JMenuItem jMIRelatorio;
+    private javax.swing.JMenu jMMEstoque;
     private javax.swing.JMenu jMMUsuario;
     private javax.swing.JMenu jMMUsuario1;
     private javax.swing.JMenu jMMUsuario2;

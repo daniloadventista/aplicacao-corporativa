@@ -41,4 +41,7 @@ public class EstoqueController {
     public Estoque find(Object id) {
         return estoqueFacadeRemote.find(id);
     }
+    public List<Estoque> csPorIdProduto(Long idProduto) {
+        return estoqueFacadeRemote.csPorId(idProduto);
+    }
 }

@@ -6,10 +6,12 @@ package br.com.projii.GUI;
 
 import br.com.projii.controller.CategoriaController;
 import br.com.projii.controller.EstoqueController;
+import br.com.projii.controller.FilialController;
 import br.com.projii.controller.ItemPedidoController;
 import br.com.projii.controller.PedidoController;
 import br.com.projii.controller.ProdutoController;
 import br.com.projii.jpa.Estoque;
+import br.com.projii.jpa.Filial;
 import br.com.projii.jpa.ItemPedido;
 import br.com.projii.jpa.Pedido;
 import br.com.projii.jpa.Produto;
@@ -26,7 +28,7 @@ public class ManterEstoque extends javax.swing.JPanel {
     private BaseJF parent;
     private ProdutoController produtoController = null;
     private EstoqueController estoqueController = null;
-    private CategoriaController categoriaController = null;
+    private FilialController filialController = null;
     private PedidoController pedidoController = null;
     private ItemPedidoController itemPedidoController = null;
 
@@ -108,27 +110,52 @@ public class ManterEstoque extends javax.swing.JPanel {
             if (estoqueController == null) {
                 estoqueController = new EstoqueController();
             }
+            if (filialController == null) {
+                filialController = new FilialController();
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
             return;
         }
         int resposta;
+        boolean nessaFialial = false;
         Produto p = produtoController.find(idP);
 
-        List<Estoque> estoques = estoqueController.csPorIdProduto(idP);
+        //logica verifica fillial
+        long idFilial = 0;
 
-        
-        
-        if (estoques.size() > 0) {
+        String nomeFilial = parent.getSFilial();
+        List<Filial> filiais = filialController.findAll();
+        for (Filial filial : filiais) {
+            if (filial.getNome().equals(nomeFilial)) {
+                idFilial = filial.getId();
+            }
+        }
+
+
+        List<Estoque> estoques = estoqueController.csPorIdProduto(idP);
+        for (Estoque estoque : estoques) {
+            Filial filial = filialController.find(estoque.getIdFilial());
+            if (!(filial == null)) {
+                if (filial.getNome().equals(nomeFilial)) {
+                    nessaFialial = true;
+                    break;
+                } else {
+                    nessaFialial = false;
+                }
+            }
+        }
+
+        if (estoques.size() > 0 && nessaFialial) {
             JOptionPane.showMessageDialog(this, "Produto ja inserido no estoque",
                     "System Mack", JOptionPane.QUESTION_MESSAGE);
         } else {
             Estoque estoque = new Estoque(idP);
-//            estoque.setIdFilial(0);//TODO mudar
+            estoque.setIdFilial(idFilial);//TODO mudar
             JOptionPane.showMessageDialog(this, p.toString());
             //0 = sim //1 = nao
             resposta = (JOptionPane.showConfirmDialog(this, "Deseja inserir "
-                    + "este produto ao carrinho", "System Mack",
+                    + "este produto ao estoque", "System Mack",
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE));
             if (resposta == 0) {
                 String s;
@@ -155,25 +182,46 @@ public class ManterEstoque extends javax.swing.JPanel {
             if (estoqueController == null) {
                 estoqueController = new EstoqueController();
             }
+            if (filialController == null) {
+                filialController = new FilialController();
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
             return;
         }
-        Estoque estoque = estoqueController.find(id);
-        String s;
-        int qtde = 0;
-        do {
-            s = JOptionPane.showInputDialog(this, "Nova Quantidade ? ",
-                    "System Mack", JOptionPane.QUESTION_MESSAGE);
-            try {
-                qtde = Integer.parseInt(s);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Quantidade Invalida");
+
+        //logica verifica fillial
+        long idFilial = 0;
+
+        String nomeFilial = parent.getSFilial();
+        List<Filial> filiais = filialController.findAll();
+        for (Filial filial : filiais) {
+            if (filial.getNome().equals(nomeFilial)) {
+                idFilial = filial.getId();
             }
-        } while (qtde <= 0);
-        estoque.setQtde((long) qtde);
-        estoqueController.update(estoque);
-        atualizarJTEstoque();
+        }
+
+        Estoque estoque = estoqueController.find(id);
+        long idFilialEst = estoque.getIdFilial();
+        if (idFilialEst == idFilial) {
+            String s;
+            int qtde = 0;
+            do {
+                s = JOptionPane.showInputDialog(this, "Nova Quantidade ? ",
+                        "System Mack", JOptionPane.QUESTION_MESSAGE);
+                try {
+                    qtde = Integer.parseInt(s);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Quantidade Invalida");
+                }
+            } while (qtde <= 0);
+            estoque.setQtde((long) qtde);
+            estoqueController.update(estoque);
+            atualizarJTEstoque();
+        } else {
+            JOptionPane.showMessageDialog(this, "Estoque de outra loja",
+                    "System Mack", JOptionPane.QUESTION_MESSAGE);
+        }
     }
 
     /**
@@ -187,7 +235,6 @@ public class ManterEstoque extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTProduto = new javax.swing.JTable();
-        jBFinalizar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jTFId = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -198,7 +245,6 @@ public class ManterEstoque extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTEstoque = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
-        jBCancelar = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(490, 400));
         setRequestFocusEnabled(false);
@@ -239,13 +285,6 @@ public class ManterEstoque extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(jTProduto);
-
-        jBFinalizar.setText("Finalizar");
-        jBFinalizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBFinalizarActionPerformed(evt);
-            }
-        });
 
         jLabel7.setText("id");
 
@@ -311,14 +350,7 @@ public class ManterEstoque extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(jTEstoque);
 
-        jLabel10.setText("Carrinho de Compras:");
-
-        jBCancelar.setText("Cancelar");
-        jBCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBCancelarActionPerformed(evt);
-            }
-        });
+        jLabel10.setText("Estoque de Compras:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -327,10 +359,6 @@ public class ManterEstoque extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -379,12 +407,7 @@ public class ManterEstoque extends javax.swing.JPanel {
                         .addComponent(jBProcProdId)
                         .addGap(9, 9, 9)
                         .addComponent(jBProcProdNome))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBFinalizar)
-                            .addComponent(jBCancelar))))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap(96, Short.MAX_VALUE))
         );
 
@@ -401,57 +424,6 @@ public class ManterEstoque extends javax.swing.JPanel {
         //procura e exibe o produto
         insereNoJTEstoque(id);
     }//GEN-LAST:event_jTProdutoMouseClicked
-
-    private void jBFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFinalizarActionPerformed
-        try {
-            if (pedidoController == null) {
-                pedidoController = new PedidoController();
-            }
-            if (itemPedidoController == null) {
-                itemPedidoController = new ItemPedidoController();
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
-            return;
-        }
-
-        if (jTEstoque.getRowCount() > 0) {
-
-            Pedido pedido = new Pedido(parent.getIdUsuario());
-            Date date = new Date();
-            pedido.setDataPed(new Date());
-            pedidoController.create(pedido);
-
-            List<Pedido> pedidos;
-            pedidos = pedidoController.findAll();
-
-            for (Pedido ped : pedidos) {
-                if (ped.getDataPed().equals(date)) {
-                    pedido = ped;
-                }
-            }
-
-//        
-            for (int i = 0; i < jTEstoque.getRowCount(); i++) {
-                //get id do carrinho
-                long id;
-                id = Long.parseLong(jTEstoque.getValueAt(i, 0).toString());
-                long qtde;
-                qtde = Long.parseLong(jTEstoque.getValueAt(i, 3).toString());
-                ItemPedido itemPedido = new ItemPedido(
-                        id, pedido);
-                itemPedido.setQtde(qtde);
-                itemPedidoController.create(itemPedido);
-            }
-
-            atualizarJTEstoque();
-            this.parent.callCheckOut(pedido.getId());
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Nao Ha Produtos", "System Mack",
-                    JOptionPane.INFORMATION_MESSAGE);
-        }
-    }//GEN-LAST:event_jBFinalizarActionPerformed
 
     private void jTFIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFIdActionPerformed
         // TODO add your handling code here:
@@ -470,10 +442,6 @@ public class ManterEstoque extends javax.swing.JPanel {
         }
         alteraEstoque(id);
     }//GEN-LAST:event_jTEstoqueMouseClicked
-
-    private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBCancelarActionPerformed
 
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
         // TODO add your handling code here:        
@@ -530,8 +498,6 @@ public class ManterEstoque extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jBProcProdNomeActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBCancelar;
-    private javax.swing.JButton jBFinalizar;
     private javax.swing.JButton jBProcProdId;
     private javax.swing.JButton jBProcProdNome;
     private javax.swing.JLabel jLabel10;

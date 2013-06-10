@@ -30,12 +30,13 @@ public class BaseJF extends javax.swing.JFrame {
 
     public BaseJF() {
         initComponents();
+        this.Usuario = "";
         this.setTitle("System Mack");
         this.setResizable(false);
         callLogin();
         //callManterUsuario();
     }
-    
+
     protected void callManterUsuario() {
         removerTudo();
         initComponents();
@@ -63,6 +64,7 @@ public class BaseJF extends javax.swing.JFrame {
         jScrollPane.setLocation(150, 100);
         jScrollPane.setSize(500, 410);
     }
+
     protected void callManterFilial() {
         removerTudo();
         initComponents();
@@ -76,7 +78,8 @@ public class BaseJF extends javax.swing.JFrame {
         jScrollPane.setLocation(150, 100);
         jScrollPane.setSize(500, 410);
     }
-    public void callManterProduto(){
+
+    public void callManterProduto() {
         removerTudo();
         initComponents();
 
@@ -88,7 +91,7 @@ public class BaseJF extends javax.swing.JFrame {
         //(800,600)
         jScrollPane.setLocation(150, 100);
         jScrollPane.setSize(500, 410);
-        
+
     }
 
     protected void removerTudo() {
@@ -100,7 +103,6 @@ public class BaseJF extends javax.swing.JFrame {
     }
 
     protected void callLogin() {
-        removerTudo();
         initComponents();
 
         jMILogar.setText("Login");
@@ -111,6 +113,7 @@ public class BaseJF extends javax.swing.JFrame {
         login.setLocation(200, 100);
         login.setSize(400, 300);
     }
+
     private void callConsultarPedidos() {
         removerTudo();
         initComponents();
@@ -121,8 +124,8 @@ public class BaseJF extends javax.swing.JFrame {
 
         jScrollPane.setVisible(true);
         //(800,600)
-        jScrollPane.setLocation(150, 100);
-        jScrollPane.setSize(500, 410);
+        jScrollPane.setLocation(65, 75);
+        jScrollPane.setSize(670, 400);
     }
 
     /**
@@ -278,6 +281,8 @@ public class BaseJF extends javax.swing.JFrame {
 
     private void jMILogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMILogarActionPerformed
         removerTudo();
+        removerTudo();
+        this.Usuario = "";
         callLogin();
     }//GEN-LAST:event_jMILogarActionPerformed
 
@@ -289,7 +294,9 @@ public class BaseJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jMIUsuarioActionPerformed
 
     private void jMICategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICategoriaActionPerformed
-        callManterCategoria();
+        if (!("".equals(Usuario))) {
+            callManterCategoria();
+        }
     }//GEN-LAST:event_jMICategoriaActionPerformed
 
     private void jMMCategoriaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMCategoriaFocusGained
@@ -297,7 +304,9 @@ public class BaseJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jMMCategoriaFocusGained
 
     private void jMIFilialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIFilialActionPerformed
-        callManterFilial();
+        if (!("".equals(Usuario))) {
+            callManterFilial();
+        }
     }//GEN-LAST:event_jMIFilialActionPerformed
 
     private void jMMFilialFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMFilialFocusGained
@@ -305,7 +314,9 @@ public class BaseJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jMMFilialFocusGained
 
     private void jMIProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIProdutoActionPerformed
-        callManterProduto();
+        if (!("".equals(Usuario))) {
+            callManterProduto();
+        }
     }//GEN-LAST:event_jMIProdutoActionPerformed
 
     private void jMMProdutosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMProdutosFocusGained
@@ -313,7 +324,9 @@ public class BaseJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jMMProdutosFocusGained
 
     private void jMIPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIPedidoActionPerformed
-        callConsultarPedidos();
+        if (!("".equals(Usuario))) {
+            callConsultarPedidos();
+        }
     }//GEN-LAST:event_jMIPedidoActionPerformed
 
     private void jMMUsuario1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMUsuario1FocusGained

@@ -29,6 +29,8 @@ public class Pedido implements Serializable, Cloneable {
     private Long idUsuario;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataPed;
+    private boolean encaminhado;
+    private boolean entregue;
     private List<ItemPedido> ItensPedido;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
@@ -39,6 +41,22 @@ public class Pedido implements Serializable, Cloneable {
     protected Pedido() {
     }
 
+    public boolean isEncaminhado() {
+        return encaminhado;
+    }
+
+    public void setEncaminhado(boolean encaminhado) {
+        this.encaminhado = encaminhado;
+    }
+
+    public boolean isEntregue() {
+        return entregue;
+    }
+
+    public void setEntregue(boolean entregue) {
+        this.entregue = entregue;
+    }
+    
     public Pedido(Long idUsuario) {
         this.idUsuario = idUsuario;
     }

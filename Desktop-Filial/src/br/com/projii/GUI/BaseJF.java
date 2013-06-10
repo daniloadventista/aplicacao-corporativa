@@ -15,7 +15,6 @@ public class BaseJF extends javax.swing.JFrame {
     /**
      * Creates new form BaseJF
      */
-
     private String Usuario;
     private long idUsuario;
     private String sFilial;
@@ -27,7 +26,7 @@ public class BaseJF extends javax.swing.JFrame {
     public void setSFilial(String sFilial) {
         this.sFilial = sFilial;
     }
-    
+
     public long getIdUsuario() {
         return idUsuario;
     }
@@ -54,7 +53,7 @@ public class BaseJF extends javax.swing.JFrame {
         callLogin();
         //callManterUsuario();
     }
-    
+
     protected void removerTudo() {
         this.getContentPane().removeAll();
     }
@@ -75,7 +74,7 @@ public class BaseJF extends javax.swing.JFrame {
         login.setLocation(200, 100);
         login.setSize(400, 300);
     }
-    
+
     private void callEfetuarCompra() {
         removerTudo();
         initComponents();
@@ -89,6 +88,7 @@ public class BaseJF extends javax.swing.JFrame {
         jScrollPane.setLocation(150, 100);
         jScrollPane.setSize(500, 410);
     }
+
     private void callManterEstoque() {
         removerTudo();
         initComponents();
@@ -102,6 +102,7 @@ public class BaseJF extends javax.swing.JFrame {
         jScrollPane.setLocation(150, 100);
         jScrollPane.setSize(500, 410);
     }
+
     public void callCheckOut(long idPedido) {
         removerTudo();
         initComponents();
@@ -115,20 +116,22 @@ public class BaseJF extends javax.swing.JFrame {
         jScrollPane.setLocation(150, 100);
         jScrollPane.setSize(500, 410);
     }
-     private void callConsultarPedidos() {
+
+    private void callConsultarPedidos() {
         removerTudo();
         initComponents();
 
-        consultaPedidos = new ConsultarPedidos();
+        consultaPedidos = new ConsultarPedidos(this);
         jScrollPane = new JScrollPane(consultaPedidos);
         this.add(jScrollPane);
 
         jScrollPane.setVisible(true);
         //(800,600)
-        jScrollPane.setLocation(150, 100);
-        jScrollPane.setSize(500, 410);
+        jScrollPane.setLocation(65, 75);
+        jScrollPane.setSize(670, 400);
     }
-     private void callFecharVendas() {
+
+    private void callFecharVendas() {
         removerTudo();
         initComponents();
 
@@ -275,19 +278,25 @@ public class BaseJF extends javax.swing.JFrame {
 
     private void jMILogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMILogarActionPerformed
         removerTudo();
+        this.Usuario = "";
+        this.idUsuario = 0;
+        this.sFilial = "";
         callLogin();
     }//GEN-LAST:event_jMILogarActionPerformed
 
     private void jMICompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICompraActionPerformed
-        callEfetuarCompra();
+        if (!(idUsuario == 0)) {
+            callEfetuarCompra();
+        }
     }//GEN-LAST:event_jMICompraActionPerformed
 
     private void jMMUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMUsuarioFocusGained
-
     }//GEN-LAST:event_jMMUsuarioFocusGained
 
     private void jMIPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIPedidoActionPerformed
-          callConsultarPedidos();
+        if (!(idUsuario == 0)) {
+            callConsultarPedidos();
+        }
     }//GEN-LAST:event_jMIPedidoActionPerformed
 
     private void jMMUsuario1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMUsuario1FocusGained
@@ -295,7 +304,6 @@ public class BaseJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jMMUsuario1FocusGained
 
     private void jMIRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIRelatorioActionPerformed
-        
     }//GEN-LAST:event_jMIRelatorioActionPerformed
 
     private void jMMUsuario2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMUsuario2FocusGained
@@ -303,7 +311,9 @@ public class BaseJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jMMUsuario2FocusGained
 
     private void jMIEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIEstoqueActionPerformed
-        callManterEstoque();
+        if (!(idUsuario == 0)) {
+            callManterEstoque();
+        }
     }//GEN-LAST:event_jMIEstoqueActionPerformed
 
     private void jMMEstoqueFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMMEstoqueFocusGained
@@ -359,6 +369,4 @@ public class BaseJF extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
-
-    
 }

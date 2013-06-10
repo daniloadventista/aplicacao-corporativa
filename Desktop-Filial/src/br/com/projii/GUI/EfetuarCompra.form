@@ -50,7 +50,7 @@
                                   <Component id="jTFNome" min="-2" pref="73" max="-2" attributes="0"/>
                                   <Component id="jTFId" min="-2" pref="73" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="9" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jBProcProdId" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jBProcProdNome" alignment="1" min="-2" max="-2" attributes="0"/>

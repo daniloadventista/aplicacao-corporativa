@@ -5,9 +5,23 @@
 package br.com.projii.GUI;
 
 import br.com.projii.controller.CategoriaController;
+import br.com.projii.controller.EstoqueController;
+import br.com.projii.controller.FilialController;
+import br.com.projii.controller.ItemPedidoController;
+import br.com.projii.controller.PedidoController;
 import br.com.projii.controller.ProdutoController;
+import br.com.projii.controller.UsuarioController;
+import br.com.projii.jpa.Estoque;
+import br.com.projii.jpa.Filial;
+import br.com.projii.jpa.ItemPedido;
+import br.com.projii.jpa.Pedido;
 import br.com.projii.jpa.Produto;
+import br.com.projii.jpa.Usuario;
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,29 +29,72 @@ import javax.swing.JOptionPane;
  */
 public class ConsultarPedidos extends javax.swing.JPanel {
 
+    private BaseJF parent;
     private ProdutoController produtoController = null;
-    private CategoriaController categoriaController = null;
+    private FilialController filialController = null;
+    private PedidoController pedidoController = null;
+    private ItemPedidoController itemPedidoController = null;
+    private EstoqueController estoqueController;
+    private static final Font COURIER_NEW = new Font("Courier New",
+            Font.PLAIN, 11);
 
     /**
      * Creates new form EfetuarCompra
      */
-    public ConsultarPedidos() {
+    public ConsultarPedidos(BaseJF baseJF) {
         initComponents();
-        atualizarJTProduto();
+        this.parent = baseJF;
+        atualizarJTPedido();
         ajustaTablePreferences();
     }
 
     private void ajustaTablePreferences() {
 //        jTProduto.setSize(1500, 300);
-        jTProduto.getColumnModel().getColumn(0).setPreferredWidth(40);
-        jTProduto.getColumnModel().getColumn(1).setPreferredWidth(80);
-        jTCart.getColumnModel().getColumn(0).setPreferredWidth(40);
-        jTCart.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jTPedido.getColumnModel().getColumn(0).setPreferredWidth(40);
+        jTPedido.getColumnModel().getColumn(1).setPreferredWidth(80);
 
     }
 
-    public void atualizarJTProduto() {
+    public void atualizarJTPedido() {
         try {
+            if (pedidoController == null) {
+                pedidoController = new PedidoController();
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
+            return;
+        }
+
+        List<Pedido> pedidos = pedidoController.findAll();
+        ArrayList<Pedido> mPedidos = new ArrayList<Pedido>();
+
+        for (Pedido pedido : pedidos) {
+            if (!(pedido.isEntregue())) {
+                mPedidos.add(pedido);
+            }
+        }
+        Pedido[] pedidosV = mPedidos.toArray(new Pedido[0]);
+        Object[][] objects = new Object[pedidosV.length][3];
+        for (int j = 0; j < pedidosV.length; j++) {
+            objects[j][0] = pedidosV[j].getId();
+            objects[j][1] = pedidosV[j].getIdUsuario();
+        }
+        jTPedido.setModel(new javax.swing.table.DefaultTableModel(
+                objects,
+                new String[]{
+                    "id Pedido", "id Usuario"
+                }));
+    }
+
+    public void atualizaJTAPedido(long idPedido) {
+        try {
+            if (pedidoController == null) {
+                pedidoController = new PedidoController();
+            }
+            if (itemPedidoController == null) {
+                itemPedidoController = new ItemPedidoController();
+            }
             if (produtoController == null) {
                 produtoController = new ProdutoController();
             }
@@ -45,18 +102,216 @@ public class ConsultarPedidos extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
             return;
         }
-        Produto[] filiais = produtoController.findAll().toArray(new Produto[0]);
-        Object[][] objects = new Object[filiais.length][3];
-        for (int i = 0; i < filiais.length; i++) {
-            objects[i][0] = filiais[i].getId();
-            objects[i][1] = filiais[i].getNome();
-            objects[i][2] = filiais[i].getPreco();
+
+        Pedido pedido = pedidoController.find(idPedido);
+        List<ItemPedido> itensPedido = itemPedidoController.findAll();
+        String s = pedido.toString();
+        double total = 0;
+        for (ItemPedido itemPedido : itensPedido) {
+            if (itemPedido.getPedido().getId().equals(pedido.getId())) {
+                Produto produto = produtoController.find(itemPedido.getIdProduto());
+                s = s + "\n" + itemPedido.toString();
+//                s = s + "\n" + produto.toString();
+
+
+                if (produto.getNome().length() < 16) {
+                    int i = 16 - produto.getNome().length();
+                    s = s + "\n" + produto.getNome();
+                    for (int j = 0; j < i; j++) {
+                        s = s + ".";
+                    }
+//                    System.out.format("%10.3f%n", pi);
+                    s = s + ".....:" + String.format("%10.3f", produto.getPreco());
+                    s = s + ".....:" + String.format("%10.3f", produto.getPreco() * itemPedido.getQtde());
+                    total = total + produto.getPreco() * itemPedido.getQtde();
+                } else {
+                    s = s + "\n" + produto.getNome().substring(0, 15);
+//                    s = s + ".....:" + produto.getPreco() * itemPedido.getQtde();
+//                    total = total + produto.getPreco() * itemPedido.getQtde();
+//                    s = s + ".....:" + produto.getPreco();
+                    s = s + ".....:" + String.format("%10.3f", produto.getPreco());
+                    s = s + ".....:" + String.format("%10.3f", produto.getPreco() * itemPedido.getQtde());
+                    total = total + produto.getPreco() * itemPedido.getQtde();
+
+                }
+            }
         }
-        jTProduto.setModel(new javax.swing.table.DefaultTableModel(
-                objects,
-                new String[]{
-            "id", "Nome", "Preço"
-        }));
+        s = s + "\nTotal:...............:" + String.format("%10.3f", total);
+        jTAPedido.setText(s);
+        jTAPedido.setFont(COURIER_NEW);
+    }
+
+    private void encaminhaPedido(long id) {
+        try {
+            if (pedidoController == null) {
+                pedidoController = new PedidoController();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
+            return;
+        }
+        int resposta;
+        //0 = sim //1 = nao
+        atualizaJTAPedido(id);
+
+        resposta = (JOptionPane.showConfirmDialog(this, "Deseja atender "
+                + "este pedido ?"
+                + "",
+                "System Mack",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE));
+        Pedido p = pedidoController.find(id);
+
+        if (resposta == 0) {
+//            boolean verificaItensDoPedido = verificaItensDoPedido(id);
+//            if (verificaItensDoPedido) {
+//                boolean atuualizoEstoqueItensDoPedido = atuualizoEstoqueItensDoPedido(id);
+//            }
+            p.setEntregue(true);
+            pedidoController.update(p);
+        } else {
+            p.setEncaminhado(false);
+            pedidoController.update(p);
+        }
+        atualizarJTPedido();
+    }
+
+    public boolean verificaItensDoPedido(long idPedido) {
+        try {
+            if (pedidoController == null) {
+                pedidoController = new PedidoController();
+            }
+            if (itemPedidoController == null) {
+                itemPedidoController = new ItemPedidoController();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
+            return false;
+        }
+        Pedido p = pedidoController.find(idPedido);
+        List<ItemPedido> itensPedidos = itemPedidoController.findAll();
+        boolean verificaItensDoPedido = false;
+        for (ItemPedido itemPedido : itensPedidos) {
+            long idItem = itemPedido.getId();
+            if (idPedido == idItem) {
+                verificaItensDoPedido = true;
+                if (!(verificaQtdeProd(itemPedido.getIdProduto(), itemPedido.getQtde()))) {
+                    //mensagem q nao atende
+                    JOptionPane.showMessageDialog(this, "O produto de codigo : "
+                            + itemPedido.getId() + " : nao tem estoque suficiente"
+                            + "\n O pedido nao pode ser atendido!",
+                            "System Mack",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return false;
+                }
+            }
+        }
+        return verificaItensDoPedido;
+    }
+
+    public boolean atuualizoEstoqueItensDoPedido(long idPedido) {
+        try {
+            if (pedidoController == null) {
+                pedidoController = new PedidoController();
+            }
+            if (itemPedidoController == null) {
+                itemPedidoController = new ItemPedidoController();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
+            return false;
+        }
+        Pedido p = pedidoController.find(idPedido);
+        List<ItemPedido> itensPedidos = itemPedidoController.findAll();
+        boolean atuualizoEstoqueItensDoPedido = false;
+        for (ItemPedido itemPedido : itensPedidos) {
+            long idItem = itemPedido.getId();
+            if (idPedido == idItem) {
+                atuualizoEstoqueItensDoPedido = true;
+                atualizaEstoque(itemPedido.getIdProduto(), itemPedido.getQtde());
+                //mensagem q nao atende
+            }
+        }
+        return true;
+    }
+
+    public boolean verificaQtdeProd(long id, long qtde) {
+        boolean isSuficiente = false;
+        try {
+            if (produtoController == null) {
+                produtoController = new ProdutoController();
+            }
+            if (estoqueController == null) {
+                estoqueController = new EstoqueController();
+            }
+            if (filialController == null) {
+                filialController = new FilialController();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
+            return isSuficiente;
+        }
+
+        Produto p = produtoController.find(id);
+        List<Estoque> estoques = estoqueController.csPorIdProduto(id);
+
+        long idFilial = 0;
+
+        String nomeFilial = parent.getSFilial();
+        List<Filial> filiais = filialController.findAll();
+        for (Filial filial : filiais) {
+            if (filial.getNome().equals(nomeFilial)) {
+                idFilial = filial.getId();
+            }
+        }
+
+        for (Estoque estoque : estoques) {
+            long idF = estoque.getIdFilial();
+            if (idFilial == idF) {
+                isSuficiente = (qtde <= estoque.getQtde());
+                return isSuficiente;
+            }
+        }
+        return isSuficiente;
+    }
+
+    public void atualizaEstoque(long idP, long qtde) {
+        try {
+            if (produtoController == null) {
+                produtoController = new ProdutoController();
+            }
+            if (estoqueController == null) {
+                estoqueController = new EstoqueController();
+            }
+            if (filialController == null) {
+                filialController = new FilialController();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
+            return;
+        }
+
+        Produto p = produtoController.find(idP);
+        List<Estoque> estoques = estoqueController.csPorIdProduto(idP);
+
+        long idFilial = 0;
+
+        String nomeFilial = parent.getSFilial();
+        List<Filial> filiais = filialController.findAll();
+        for (Filial filial : filiais) {
+            if (filial.getNome().equals(nomeFilial)) {
+                idFilial = filial.getId();
+            }
+        }
+
+        for (Estoque estoque : estoques) {
+            long idF = estoque.getIdFilial();
+            if (idFilial == idF) {
+                estoque.setQtde(estoque.getQtde() - qtde);
+                estoqueController.update(estoque);
+                return;
+            }
+        }
+        return;
     }
 
     /**
@@ -69,13 +324,10 @@ public class ConsultarPedidos extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTProduto = new javax.swing.JTable();
-        jBFinalizar = new javax.swing.JButton();
+        jTPedido = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTCart = new javax.swing.JTable();
-        jLabel10 = new javax.swing.JLabel();
-        jBCancelar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTAPedido = new javax.swing.JTextArea();
 
         setPreferredSize(new java.awt.Dimension(490, 400));
         setRequestFocusEnabled(false);
@@ -87,7 +339,7 @@ public class ConsultarPedidos extends javax.swing.JPanel {
             }
         });
 
-        jTProduto.setModel(new javax.swing.table.DefaultTableModel(
+        jTPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -110,137 +362,67 @@ public class ConsultarPedidos extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTPedido.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTProdutoMouseClicked(evt);
+                jTPedidoMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTProduto);
-
-        jBFinalizar.setText("Finalizar");
-        jBFinalizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBFinalizarActionPerformed(evt);
-            }
-        });
+        jScrollPane1.setViewportView(jTPedido);
 
         jLabel8.setText("Pedidos pendentes:");
 
-        jScrollPane3.setPreferredSize(new java.awt.Dimension(1000, 280));
-
-        jTCart.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "id do pedido", "id do usuário"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTCart.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTCartMouseClicked(evt);
-            }
-        });
-        jScrollPane3.setViewportView(jTCart);
-
-        jLabel10.setText("Finalizar pedidos pendentes:");
-
-        jBCancelar.setText("Cancelar");
-        jBCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBCancelarActionPerformed(evt);
-            }
-        });
+        jTAPedido.setColumns(20);
+        jTAPedido.setRows(5);
+        jScrollPane2.setViewportView(jTAPedido);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 648, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-                        .addGap(12, 12, 12))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel10))
+                .addComponent(jLabel8)
                 .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBFinalizar)
-                    .addComponent(jBCancelar))
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProdutoMouseClicked
-    }//GEN-LAST:event_jTProdutoMouseClicked
-
-    private void jBFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFinalizarActionPerformed
-    }//GEN-LAST:event_jBFinalizarActionPerformed
-
-    private void jTCartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTCartMouseClicked
+    private void jTPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTPedidoMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTCartMouseClicked
+        int linha = jTPedido.getSelectedRow();
+        long id = 0;
+        if (!(jTPedido.getValueAt(linha, 0) == null)) {
+            id = Long.parseLong(jTPedido.getValueAt(linha, 0).toString());
+        }
+        //procura e exibe o produto
+        encaminhaPedido(id);
 
-    private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBCancelarActionPerformed
+    }//GEN-LAST:event_jTPedidoMouseClicked
 
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
-        // TODO add your handling code here:
-        int linha = jTProduto.getSelectedRow();
-        if (!(jTProduto.getValueAt(linha, 0) == null)) {
-//            jTFId.setText(jTProduto.getValueAt(linha, 0).toString());
-        }
-        
     }//GEN-LAST:event_jScrollPane1MouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBCancelar;
-    private javax.swing.JButton jBFinalizar;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTCart;
-    private javax.swing.JTable jTProduto;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTAPedido;
+    private javax.swing.JTable jTPedido;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,12 +5,18 @@
 package br.com.projii.GUI;
 
 import br.com.projii.controller.CategoriaController;
+import br.com.projii.controller.EstoqueController;
+import br.com.projii.controller.FilialController;
 import br.com.projii.controller.ItemPedidoController;
 import br.com.projii.controller.PedidoController;
 import br.com.projii.controller.ProdutoController;
+import br.com.projii.controller.UsuarioController;
+import br.com.projii.jpa.Estoque;
+import br.com.projii.jpa.Filial;
 import br.com.projii.jpa.ItemPedido;
 import br.com.projii.jpa.Pedido;
 import br.com.projii.jpa.Produto;
+import br.com.projii.jpa.Usuario;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -21,12 +27,15 @@ import javax.swing.table.DefaultTableModel;
  * @author dj002
  */
 public class EfetuarCompra extends javax.swing.JPanel {
-    
+
     private BaseJF parent;
     private ProdutoController produtoController = null;
+    private FilialController filialController = null;
     private CategoriaController categoriaController = null;
+    private UsuarioController usuarioController = null;
     private PedidoController pedidoController = null;
     private ItemPedidoController itemPedidoController = null;
+    private EstoqueController estoqueController;
 
     /**
      * Creates new form EfetuarCompra
@@ -37,7 +46,7 @@ public class EfetuarCompra extends javax.swing.JPanel {
         atualizarJTProduto();
         ajustaTablePreferences();
     }
-    
+
     private void ajustaTablePreferences() {
 //        jTProduto.setSize(1500, 300);
         jTProduto.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -47,9 +56,9 @@ public class EfetuarCompra extends javax.swing.JPanel {
         jTCart.getColumnModel().getColumn(1).setPreferredWidth(100);
         jTCart.getColumnModel().getColumn(2).setPreferredWidth(60);
         jTCart.getColumnModel().getColumn(3).setPreferredWidth(40);
-        
+
     }
-    
+
     public void atualizarJTProduto() {
         try {
             if (produtoController == null) {
@@ -72,7 +81,7 @@ public class EfetuarCompra extends javax.swing.JPanel {
                     "id", "Nome", "Preço"
                 }));
     }
-    
+
     public void atualizarJTCart() {
         Object[][] objects = new Object[0][4];
         jTCart.setModel(new javax.swing.table.DefaultTableModel(
@@ -81,8 +90,8 @@ public class EfetuarCompra extends javax.swing.JPanel {
                     "id", "Nome", "Preço", "Qtde"
                 }));
     }
-    
-    public void insereNoJTCart(long id) {
+
+    public void insereNoJTCart(long idProd) {
         try {
             if (produtoController == null) {
                 produtoController = new ProdutoController();
@@ -92,12 +101,9 @@ public class EfetuarCompra extends javax.swing.JPanel {
             return;
         }
         int resposta;
-        Produto p = produtoController.find(id);
-        
-        JOptionPane.showMessageDialog(this, p.toString());
+        Produto p = produtoController.find(idProd);
 
-//        DefaultTableModel model = (DefaultTableModel) table.getModel();
-//        model.addRow(new Object[]{"Column 1", "Column 2", "Column 3"});
+        JOptionPane.showMessageDialog(this, p.toString());
 
         //0 = sim //1 = nao
         resposta = (JOptionPane.showConfirmDialog(this, "Deseja inserir "
@@ -105,20 +111,106 @@ public class EfetuarCompra extends javax.swing.JPanel {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE));
         if (resposta == 0) {
             String s;
-            int i = 0;
+            int qtde = 0;
             do {
                 s = JOptionPane.showInputDialog(this, "Quantidade ? ", "System Mack",
                         JOptionPane.QUESTION_MESSAGE);
                 try {
-                    i = Integer.parseInt(s);
+                    qtde = Integer.parseInt(s);
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Quantidade Invalida");
                 }
-            } while (i <= 0);
-            DefaultTableModel model = (DefaultTableModel) jTCart.getModel();
-            model.addRow(new Object[]{p.getId(), p.getNome(), p.getPreco(), i});
+            } while (qtde <= 0);
+            if (verificaQtdeProd(idProd, qtde)) {
+                DefaultTableModel model = (DefaultTableModel) jTCart.getModel();
+                model.addRow(new Object[]{p.getId(), p.getNome(), p.getPreco(), qtde});
+            } else {
+                JOptionPane.showMessageDialog(this, "Nao Ha Produtos suficientes"
+                        + " em estoque", "System Mack",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
         }
-        
+
+    }
+
+    public boolean verificaQtdeProd(long id, long qtde) {
+        boolean isSuficiente = false;
+        try {
+            if (produtoController == null) {
+                produtoController = new ProdutoController();
+            }
+            if (estoqueController == null) {
+                estoqueController = new EstoqueController();
+            }
+            if (filialController == null) {
+                filialController = new FilialController();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
+            return isSuficiente;
+        }
+
+        Produto p = produtoController.find(id);
+        List<Estoque> estoques = estoqueController.csPorIdProduto(id);
+
+        long idFilial = 0;
+
+        String nomeFilial = parent.getSFilial();
+        List<Filial> filiais = filialController.findAll();
+        for (Filial filial : filiais) {
+            if (filial.getNome().equals(nomeFilial)) {
+                idFilial = filial.getId();
+            }
+        }
+
+        for (Estoque estoque : estoques) {
+            long idF = estoque.getIdFilial();
+            if (idFilial == idF) {
+                isSuficiente = (qtde <= estoque.getQtde());
+                return isSuficiente;
+            }
+        }
+        return isSuficiente;
+    }
+
+    public void atualizaEstoque(long idP, long qtde) {
+        try {
+            if (produtoController == null) {
+                produtoController = new ProdutoController();
+            }
+            if (estoqueController == null) {
+                estoqueController = new EstoqueController();
+            }
+            if (filialController == null) {
+                filialController = new FilialController();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
+            return;
+        }
+
+        Produto p = produtoController.find(idP);
+        List<Estoque> estoques = estoqueController.csPorIdProduto(idP);
+
+        long idFilial = 0;
+
+        String nomeFilial = parent.getSFilial();
+        List<Filial> filiais = filialController.findAll();
+        for (Filial filial : filiais) {
+            if (filial.getNome().equals(nomeFilial)) {
+                idFilial = filial.getId();
+            }
+        }
+
+        for (Estoque estoque : estoques) {
+            long idF = estoque.getIdFilial();
+            if (idFilial == idF) {
+                estoque.setQtde(estoque.getQtde() - qtde);
+                estoqueController.update(estoque);
+                return;
+            }
+        }
+        return;
     }
 
     /**
@@ -346,7 +438,7 @@ public class EfetuarCompra extends javax.swing.JPanel {
         //procura e exibe o produto
         insereNoJTCart(id);
     }//GEN-LAST:event_jTProdutoMouseClicked
-    
+
     private void jBFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFinalizarActionPerformed
         try {
             if (pedidoController == null) {
@@ -355,21 +447,29 @@ public class EfetuarCompra extends javax.swing.JPanel {
             if (itemPedidoController == null) {
                 itemPedidoController = new ItemPedidoController();
             }
+            if (usuarioController == null) {
+                usuarioController = new UsuarioController();
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro ao conectar com o servidor...");
             return;
         }
-        
+
         if (jTCart.getRowCount() > 0) {
-            
+
             Pedido pedido = new Pedido(parent.getIdUsuario());
             Date date = new Date();
             pedido.setDataPed(new Date());
+            Usuario usuario = usuarioController.find(parent.getIdUsuario());
+            //para simular compras on line
+            //o normal seria criar com true
+            pedido.setEncaminhado(usuario.isIsFunc());
+            pedido.setEntregue(usuario.isIsFunc());
             pedidoController.create(pedido);
-            
+
             List<Pedido> pedidos;
             pedidos = pedidoController.findAll();
-            
+
             for (Pedido ped : pedidos) {
                 if (ped.getDataPed().equals(date)) {
                     pedido = ped;
@@ -386,40 +486,42 @@ public class EfetuarCompra extends javax.swing.JPanel {
                 ItemPedido itemPedido = new ItemPedido(
                         id, pedido);
                 itemPedido.setQtde(qtde);
+                //atualizo estoque
+                atualizaEstoque(id, qtde);
                 itemPedidoController.create(itemPedido);
             }
-            
+
             atualizarJTCart();
             this.parent.callCheckOut(pedido.getId());
-            
+
         } else {
             JOptionPane.showMessageDialog(this, "Nao Ha Produtos", "System Mack",
                     JOptionPane.INFORMATION_MESSAGE);
         }
-        
-        
+
+
     }//GEN-LAST:event_jBFinalizarActionPerformed
-    
+
     private void jTFIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTFIdActionPerformed
-    
+
     private void jTFNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTFNomeActionPerformed
-    
+
     private void jTCartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTCartMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jTCartMouseClicked
-    
+
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBCancelarActionPerformed
-    
+
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
         // TODO add your handling code here:        
     }//GEN-LAST:event_jScrollPane1MouseClicked
-    
+
     private void jBProcProdIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBProcProdIdActionPerformed
         try {
             if (produtoController == null) {
@@ -439,7 +541,7 @@ public class EfetuarCompra extends javax.swing.JPanel {
                     JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jBProcProdIdActionPerformed
-    
+
     private void jBProcProdNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBProcProdNomeActionPerformed
         try {
             if (produtoController == null) {
@@ -455,7 +557,7 @@ public class EfetuarCompra extends javax.swing.JPanel {
             String nome = jTFNome.getText();
             produtos = produtoController.findAll();
             for (Produto produto : produtos) {
-                if(produto.getNome().equals(nome)){
+                if (produto.getNome().equals(nome)) {
                     idP = produto.getId();
                 }
             }

@@ -1,4 +1,4 @@
-/*
+/*|
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -168,7 +168,7 @@ public class ManterEstoque extends javax.swing.JPanel {
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(this, "Quantidade Invalida");
                     }
-                } while (qtde <= 0);
+                } while (qtde < 0);
                 estoque.setQtde((long) qtde);
                 estoqueController.create(estoque);
                 atualizarJTEstoque();
@@ -214,7 +214,7 @@ public class ManterEstoque extends javax.swing.JPanel {
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Quantidade Invalida");
                 }
-            } while (qtde <= 0);
+            } while (qtde < 0);
             estoque.setQtde((long) qtde);
             estoqueController.update(estoque);
             atualizarJTEstoque();

@@ -30,31 +30,31 @@
                 var attrCategoryName = "pcategory";
                 
                 // Labels & Messages              
-                var labelCartMenuName = 'My Cart (_COUNT_)';  // _COUNT_ will be replaced with cart count
+                var labelCartMenuName = 'Meu Carinho (_COUNT_)';  // _COUNT_ will be replaced with cart count
                 var labelCartMenuNameTooltip = "Cart | Total Products: _PRODUCTCOUNT_ | Total Quantity: _ITEMCOUNT_";
-                var labelProductMenuName = 'Products';
-                var labelSearchButton = "Search";
-                var labelSearchText = "Search";
-                var labelCategoryText = "Category";
-                var labelClearButton = "Clear";
-                var labelAddToCartButton = "Add to Cart"; 
-                var labelQuantityText = "Quantity";
-                var labelProducts = 'Products';
-                var labelPrice = 'Price';
+                var labelProductMenuName = 'Produtos';
+                var labelSearchButton = "Buscar";
+                var labelSearchText = "Procurar";
+                var labelCategoryText = "Categoria";
+                var labelClearButton = "Limpar";
+                var labelAddToCartButton = "Adicionar no carinho"; 
+                var labelQuantityText = "Quantidade";
+                var labelProducts = 'Produtos';
+                var labelPrice = 'Preço';
                 var labelSubtotal = 'Subtotal';
                 var labelTotal = 'Total';
-                var labelRemove = 'Remove';
-                var labelCheckout = 'Checkout';
+                var labelRemove = 'Remover';
+                var labelCheckout = 'Finalizar compra';
                 
-                var messageConfirmRemove = 'Do you want to remove "_PRODUCTNAME_" from cart?'; //  _PRODUCTNAME_ will be replaced with actula product name
-                var messageCartEmpty = "Your cart is empty";
-                var messageProductEmpty = "No products to display";
-                var messageProductAddError = "Product cannot add";
-                var messageItemAdded = 'Product added to the cart';
-                var messageItemRemoved = 'Product removed from the cart';
-                var messageQuantityUpdated = 'Product quantity updated';
-                var messageQuantityErrorAdd = 'Invalid quantity. Product cannot add';
-                var messageQuantityErrorUpdate = 'Invalid quantity. Quantity cannot update';
+                var messageConfirmRemove = 'Tem certeza que deseja remover "_PRODUCTNAME_" do seu Noob?'; //  _PRODUCTNAME_ will be replaced with actula product name
+                var messageCartEmpty = "Seu carrinho esta vazio Noob";
+                var messageProductEmpty = "Não existe produtos pra serem mostrados hehe";
+                var messageProductAddError = "O produto não pode ser adicionado";
+                var messageItemAdded = 'O produto foi adicionado ao carrinho';
+                var messageItemRemoved = 'Produto removido do carrinho';
+                var messageQuantityUpdated = 'Quantidade do produto atualizado';
+                var messageQuantityErrorAdd = 'Quantidade inválida. O produto não pode ser adicionado';
+                var messageQuantityErrorUpdate = 'Quantidade inválida. O produto não pode ser atualizado';
                 
                 //Create Main Menu
                 cartMenu = labelCartMenuName.replace('_COUNT_','0'); // display default
@@ -423,7 +423,7 @@
                 
                 function fillCategory(){
                    var catCount = 0;
-                   var catItem = $('<option></option>').attr("value",'').attr('selected', true).html('All');
+                   var catItem = $('<option></option>').attr("value",'').attr('selected', true).html('Todas');
                    elmCategory.prepend(catItem);                   
                    $(products).each(function(i,n){
                         var pCategory = $(this).attr(attrCategoryName);
@@ -631,7 +631,7 @@
           enableImageTooltip: true,
           enableSearch: true,
           enableCategoryFilter: true,
-          productItemTemplate:'<strong><%=pname%></strong><br />Category: <%=pcategory%><br /><small><%=pdesc%></small><br /><strong>Price: <%=pprice%></strong>',
+          productItemTemplate:'<strong><%=pname%></strong><br />Categoria: <%=pcategory%><br /><small><%=pdesc%></small><br /><strong>Preço: <%=pprice%> R$</strong>',
           cartItemTemplate:'<strong><%=pname%></strong>',
           // Events
           onAdd: null,      // function(pObj,quantity){ return true; }
